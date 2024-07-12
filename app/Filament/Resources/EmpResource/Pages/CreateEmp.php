@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Filament\Resources\EmpResource\Pages;
+
+use App\Filament\Resources\EmpResource;
+use Filament\Actions;
+use Filament\Resources\Pages\CreateRecord;
+
+class CreateEmp extends CreateRecord
+{
+    protected static string $resource = EmpResource::class;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['user_id'] = auth()->id();
+
+        $data['day_off'] = implode(',', $data['day_off']);
+
+        return $data;
+    }
+}

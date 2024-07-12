@@ -26,11 +26,11 @@ class Emp extends Model
 
     public function sentTasks()
     {
-        return $this->hasMany(Task::class, 'sender_emp_id');
+        return $this->hasMany(Task::class, 'sender_id');
     }
 
     public function receivedTasks()
     {
-        return $this->hasMany(Task::class, 'receiver_emp_id');
+        return $this->hasMany(Task::class, 'receiver_id');
     }
 }

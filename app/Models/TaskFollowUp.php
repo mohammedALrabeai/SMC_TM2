@@ -10,13 +10,13 @@ class TaskFollowUp extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'task_id', 'task_status_id', 'note',
+        'emp_id', 'task_id', 'task_status_id', 'note',
     ];
 
     // Define relationships
-    public function user()
+    public function emp()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Emp::class);
     }
 
     public function task()

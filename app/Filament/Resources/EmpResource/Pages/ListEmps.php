@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\ProjectResource\Pages;
+namespace App\Filament\Resources\EmpResource\Pages;
 
-use App\Filament\Resources\ProjectResource;
+use App\Filament\Resources\EmpResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListProjects extends ListRecords
+class ListEmps extends ListRecords
 {
-    protected static string $resource = ProjectResource::class;
+    protected static string $resource = EmpResource::class;
 
     protected function getHeaderActions(): array
     {
@@ -16,5 +16,4 @@ class ListProjects extends ListRecords
             Actions\CreateAction::make(),
         ];
     }
-    
 }

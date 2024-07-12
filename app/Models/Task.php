@@ -20,9 +20,24 @@ class Task extends Model
     // Define relationships
     public function project()
     {
+
+
         return $this->belongsTo(Project::class);
+
+
+
     }
 
+    public function user_project()
+{
+    return $this->belongsTo(Project::class,'project_id')->where('user_id', auth()->id());
+}
+
+
+public function task_emp()
+{
+    return $this->belongsTo(Emp::class,'sender_id')->where('user_id', auth()->id());
+}
     public function sender()
     {
         return $this->belongsTo(Emp::class, 'sender_id');
@@ -46,5 +61,10 @@ class Task extends Model
     public function lastFollowUp()
     {
         return $this->hasOne(TaskFollowUp::class)->latestOfMany();
+    }
+
+    public function projectOwner()
+    {
+        return $this->hasOneThrough(User::class, Project::class, 'id', 'id', 'project_id', 'user_id');
     }
 }

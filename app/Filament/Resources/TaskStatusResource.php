@@ -2,23 +2,20 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\TaskStatusResource\Pages;
+use App\Filament\Resources\TaskStatusResource\RelationManagers;
+use App\Models\TaskStatus;
 use Filament\Forms;
-use App\Models\User;
-use Filament\Tables;
-use App\Models\Project;
 use Filament\Forms\Form;
-use Filament\Tables\Table;
-use App\Policies\ProjectPolicy;
 use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use RelationManagers\UsersRelationManager;
-use App\Filament\Resources\ProjectResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\ProjectResource\RelationManagers;
 
-class ProjectResource extends Resource
+class TaskStatusResource extends Resource
 {
-    protected static ?string $model = Project::class;
+    protected static ?string $model = TaskStatus::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -28,22 +25,12 @@ class ProjectResource extends Resource
             ->schema([
                 // Forms\Components\TextInput::make('user_id')
                 //     ->required()
-                //     ->label('user id')
-
                 //     ->numeric(),
-                    // Forms\Components\Select::make('user_id')
-                    // ->options(User::pluck('name', 'id')) // Adjust 'name' and 'id' based on your User model
-                    // ->displayUsingLabels()
-                    // ->required(),
-                //    Forms\Components\Select::make('user_id')
-                //     ->relationship('user', 'name'),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('whatsapp_group_id')
-                    ->columnSpanFull(),
-                Forms\Components\DatePicker::make('start_date'),
-                Forms\Components\DatePicker::make('end_date'),
+                Forms\Components\Toggle::make('only_for_admin')
+                    ->required(),
             ]);
     }
 
@@ -54,17 +41,10 @@ class ProjectResource extends Resource
                 // Tables\Columns\TextColumn::make('user_id')
                 //     ->numeric()
                 //     ->sortable(),
-                Tables\Columns\TextColumn::make('user.name')
-                ->label('User Name') // Optional label
-                ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('start_date')
-                    ->date()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('end_date')
-                    ->date()
-                    ->sortable(),
+                Tables\Columns\IconColumn::make('only_for_admin')
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -75,7 +55,6 @@ class ProjectResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-
                 //
             ])
             ->actions([
@@ -92,27 +71,15 @@ class ProjectResource extends Resource
     {
         return [
             //
-            RelationManagers\TasksRelationManager::class,
-
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProjects::route('/'),
-            'create' => Pages\CreateProject::route('/create'),
-            'edit' => Pages\EditProject::route('/{record}/edit'),
+            'index' => Pages\ListTaskStatuses::route('/'),
+            'create' => Pages\CreateTaskStatus::route('/create'),
+            'edit' => Pages\EditTaskStatus::route('/{record}/edit'),
         ];
     }
-
-
-
-    public static function getEloquentQuery(): Builder
-{
-    if(auth()->user()->type=="super admin"){
-        return parent::getEloquentQuery();
-    }
-    return parent::getEloquentQuery()->where('user_id', auth()->user()->id);
-}
 }

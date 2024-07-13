@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateTaskFollowUp extends CreateRecord
 {
     protected static string $resource = TaskFollowUpResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

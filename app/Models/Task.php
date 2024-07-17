@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Emp;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -33,10 +34,30 @@ class Task extends Model
     return $this->belongsTo(Project::class,'project_id')->where('user_id', auth()->id());
 }
 
+public function emp_project()
+{
 
+    $user=User::find(auth()->user()->user_id);
+// dd($user);
+    return $this->belongsTo(Project::class,'project_id')->where('user_id', $user->id);
+}
+// public function projectForEmp()
+// {
+//     return $this->belongsTo(Project::class, 'project_id');
+// }
+// public function emp_project()
+// {
+//     return $this->hasOneThrough(Project::class, Emp::class, 'id', 'id', 'sender_id', 'project_id')
+//                 ->where('emps.id', auth()->id());
+// }
 public function task_emp()
 {
     return $this->belongsTo(Emp::class,'sender_id')->where('user_id', auth()->id());
+}
+
+public function task_emp_app()
+{
+    return $this->belongsTo(Emp::class,'sender_id')->where('user_id', auth()->user()->user_id);
 }
     public function sender()
     {

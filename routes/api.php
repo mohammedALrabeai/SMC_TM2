@@ -1,13 +1,15 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\EmpController;
-use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\TaskController;
-use App\Http\Controllers\TaskFollowUpController;
-use App\Http\Controllers\TaskStatusController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EmpController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskStatusController;
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\TaskFollowUpController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();

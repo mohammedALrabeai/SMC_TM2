@@ -29,6 +29,22 @@ class EmpResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+                    Forms\Components\TextInput::make('email')
+                    ->email()
+                    ->required()
+                    ->maxLength(255),
+                // Forms\Components\DateTimePicker::make('email_verified_at'),
+                // Forms\Components\TextInput::make('password')
+                //     ->password()
+                //     ->required()
+                //     ->dehydrated(false)
+                //     ->maxLength(255),
+                Forms\Components\TextInput::make('password')
+                ->required()
+                ->password()
+                ->label('Password')
+                ->dehydrateStateUsing(fn ($state) => \Hash::make($state)),
+
                 Forms\Components\TextInput::make('phone')
                     ->tel()
                     ->maxLength(255)
@@ -69,6 +85,8 @@ class EmpResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
+                    ->searchable(),
+                    Tables\Columns\TextColumn::make('email')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('number_of_hours_per_day')
                     ->numeric()

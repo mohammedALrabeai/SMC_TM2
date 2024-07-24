@@ -28,4 +28,10 @@ class TaskFollowUp extends Model
     {
         return $this->belongsTo(TaskStatus::class);
     }
+    public function taskStatusForUser()
+    {
+        $user=User::find(auth()->user()->user_id);
+        // dd($user);
+            return $this->belongsTo(TaskStatus::class,'task_status_id')->where('user_id', $user->id);
+    }
 }

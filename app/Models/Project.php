@@ -28,4 +28,8 @@ class Project extends Model
     {
         return $this->belongsToMany(Emp::class);
     }
+    public function user_project_app()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

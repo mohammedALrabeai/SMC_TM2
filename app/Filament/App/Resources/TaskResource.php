@@ -23,46 +23,31 @@ use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\DateTimePicker;
 use App\Filament\App\Resources\TaskResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\App\Resources\TaskResource\RelationManagers;
+use App\Filament\App\Resources\TaskResource\RelationManagers\TaskFollowUpsRelationManager;
 
 class TaskResource extends Resource
 {
     protected static ?string $model = Task::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-check-circle';
 
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                // Forms\Components\TextInput::make('project_id')
-                //     ->required()
-                //     ->numeric(),
                 Forms\Components\Select::make('project_id')
                     ->relationship('emp_project', 'name'),
-                    // Forms\Components\Select::make('project_id')
-                    // ->label('Project')
-                    // ->relationship('projectForEmp', 'name')
-                    // ->options(Project::where('user_id', User::find(auth()->user()->user_id)->id)->pluck('name', 'id'))
-                    // ->required(),
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('description')
                     ->columnSpanFull(),
-                // Forms\Components\TextInput::make('sender_id')
-                //     ->required()
-                //     ->numeric(),
                 Forms\Components\Select::make('sender_id')
-
                     ->relationship('task_emp_app', 'name')
                     ->required()
-                    // ->default(auth()->user()->id)
                     ->label('Sender Name'),
-                // Forms\Components\TextInput::make('receiver_id')
-                //     ->required()
-                //     ->numeric(),
                 Forms\Components\Select::make('receiver_id')
                     ->relationship('task_emp_app', 'name')
                     ->required()
@@ -70,13 +55,11 @@ class TaskResource extends Resource
                 Forms\Components\TextInput::make('time_in_minutes')
                     ->numeric()
                     ->default(null),
-                // Forms\Components\DateTimePicker::make('start_date'),
                 Forms\Components\Toggle::make('is_recurring')
                     ->required(),
                 Forms\Components\TextInput::make('recurrence_interval_days')
                     ->numeric()
                     ->default(null),
-                // Forms\Components\DateTimePicker::make('next_occurrence'),
             ]);
     }
 
@@ -85,48 +68,50 @@ class TaskResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('projectOwner.name')
-                    ->label('User Name')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('sender.name')
-                    ->label('Sender Name') // Optional label
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('receiver.name')
-                    ->label('Receiver Name') // Optional label
-                    ->sortable(),
-                // Tables\Columns\TextColumn::make('sender_id')
-                // ->relationship('task_emp', 'name')
-                //     ->sortable(),
-                // Tables\Columns\TextColumn::make('receiver_id')
-                //     ->numeric()
-                //     ->sortable(),
-                Tables\Columns\TextColumn::make('time_in_minutes')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('start_date')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\IconColumn::make('is_recurring')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('recurrence_interval_days')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('next_occurrence')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
+                ->numeric()
+                ->sortable(),
+            Tables\Columns\TextColumn::make('projectOwner.name')
+                ->label('User Name')
+                ->sortable(),
+            Tables\Columns\TextColumn::make('title')
+                ->searchable(),
+            Tables\Columns\TextColumn::make('sender.name')
+                ->label('Sender Name') // Optional label
+                ->sortable(),
+            Tables\Columns\TextColumn::make('receiver.name')
+                ->label('Receiver Name') // Optional label
+                ->sortable(),
+                Tables\Columns\TextColumn::make('lastFollowUp.taskStatus.name')
+                ->label('Last Follow Up') // Optional label
+                ->sortable(),
+            // Tables\Columns\TextColumn::make('sender_id')
+            // ->relationship('task_emp', 'name')
+            //     ->sortable(),
+            // Tables\Columns\TextColumn::make('receiver_id')
+            //     ->numeric()
+            //     ->sortable(),
+            Tables\Columns\TextColumn::make('time_in_minutes')
+                ->numeric()
+                ->sortable(),
+            Tables\Columns\TextColumn::make('start_date')
+                ->dateTime()
+                ->sortable(),
+            Tables\Columns\TextColumn::make('created_at')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+            Tables\Columns\TextColumn::make('updated_at')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+            Tables\Columns\IconColumn::make('is_recurring')
+                ->boolean(),
+            Tables\Columns\TextColumn::make('recurrence_interval_days')
+                ->numeric()
+                ->sortable(),
+            Tables\Columns\TextColumn::make('next_occurrence')
+                ->dateTime()
+                ->sortable(),
             ])
             ->filters([
                 Filter::make('created_at')
@@ -145,7 +130,7 @@ class TaskResource extends Resource
                                 fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
                     }),
-                    Filter::make('مهامي')
+                Filter::make('مهامي')
                     ->label('مهامي')
                     ->query(function (Builder $query): Builder {
                         $userId = auth()->id();
@@ -158,6 +143,7 @@ class TaskResource extends Resource
             ],layout: FiltersLayout::AboveContent)
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -169,7 +155,7 @@ class TaskResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TaskFollowUpsRelationManager::class,
         ];
     }
 
@@ -179,6 +165,17 @@ class TaskResource extends Resource
             'index' => Pages\ListTasks::route('/'),
             'create' => Pages\CreateTask::route('/create'),
             'edit' => Pages\EditTask::route('/{record}/edit'),
+            'view' => Pages\ViewTask::route('/{record}'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $userId = auth()->guard('emp')->user()->user_id;
+
+        return parent::getEloquentQuery()
+            ->whereHas('user_project_app', function (Builder $query) use ($userId) {
+                $query->where('user_id', $userId);
+            });
     }
 }

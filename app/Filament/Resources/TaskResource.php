@@ -21,7 +21,9 @@ class TaskResource extends Resource
 {
     protected static ?string $model = Task::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-check-circle';
+
 
     public static function form(Form $form): Form
     {
@@ -77,6 +79,9 @@ class TaskResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('receiver.name')
                     ->label('Receiver Name') // Optional label
+                    ->sortable(),
+                    Tables\Columns\TextColumn::make('lastFollowUp.taskStatus.name')
+                    ->label('Last Follow Up') // Optional label
                     ->sortable(),
                 // Tables\Columns\TextColumn::make('sender_id')
                 // ->relationship('task_emp', 'name')
@@ -151,15 +156,16 @@ class TaskResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\FollowUpsRelationManager::class,
         ];
     }
+
 
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListTasks::route('/'),
-            'create' => Pages\CreateTask::route('/create'),
+            // 'create' => Pages\CreateTask::route('/create'),
             'edit' => Pages\EditTask::route('/{record}/edit'),
         ];
     }
@@ -169,9 +175,25 @@ class TaskResource extends Resource
         if (auth()->user()->type == "super admin") {
             return parent::getEloquentQuery();
         }
-        return parent::getEloquentQuery();
-        // ->join('projects', 'tasks.project_id', '=', 'projects.id')
-        // ->where('projects.user_id', auth()->user()->id)
-        // ->select('tasks.*');
+        // return parent::getEloquentQuery();
+        // // ->join('projects', 'tasks.project_id', '=', 'projects.id')
+        // // ->where('projects.user_id', auth()->user()->id)
+        // // ->select('tasks.*');
+        $userId;
+        if (auth()->guard('emp')->check()) {
+            $userId = auth()->guard('emp')->user_id;
+            // You can now use $userId
+        } else {
+            $userId = auth()->user()->id;
+            // Handle the case where the user is not authenticated
+        }
+        // $userId= auth()->user()->id;
+
+        // Assuming the Task model has a relationship with the Project model
+        // and the Project model has a 'user_id' field to relate it to the user
+        return parent::getEloquentQuery()
+            ->whereHas('user_project', function (Builder $query) use ($userId) {
+                $query->where('user_id', $userId);
+            });
     }
 }

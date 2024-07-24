@@ -17,7 +17,10 @@ class TaskFollowUpResource extends Resource
 {
     protected static ?string $model = TaskFollowUp::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-calendar';
+
+
 
     public static function form(Form $form): Form
     {
@@ -80,7 +83,7 @@ class TaskFollowUpResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -103,5 +106,18 @@ class TaskFollowUpResource extends Resource
             'create' => Pages\CreateTaskFollowUp::route('/create'),
             'edit' => Pages\EditTaskFollowUp::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $userId = auth()->user()->id;
+        // return TaskFollowUp::whereHas('task.emp_project2', function (Builder $query) use ($userId) {
+        //     $query->where('user_id', $userId);
+        // });
+        return TaskFollowUp::whereHas('task', function (Builder $query) use ($userId) {
+            $query->whereHas('project', function (Builder $query) use ($userId) {
+                $query->where('user_id', $userId);
+            });
+        });
     }
 }

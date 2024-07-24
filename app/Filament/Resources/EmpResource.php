@@ -17,7 +17,9 @@ class EmpResource extends Resource
 {
     protected static ?string $model = Emp::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+
 
     public static function form(Form $form): Form
     {
@@ -46,9 +48,10 @@ class EmpResource extends Resource
                 ->dehydrateStateUsing(fn ($state) => \Hash::make($state)),
 
                 Forms\Components\TextInput::make('phone')
-                    ->tel()
-                    ->maxLength(255)
+                    ->numeric()
+                    ->maxLength(15)
                     ->default(null),
+
                 Forms\Components\TextInput::make('number_of_hours_per_day')
                     ->required()
                     ->numeric()
@@ -68,6 +71,8 @@ class EmpResource extends Resource
     ])
     ->multiple()
   ->required(),
+  Forms\Components\Toggle::make('is_admin')
+  ->required(),
 
             ]);
     }
@@ -79,9 +84,9 @@ class EmpResource extends Resource
                 Tables\Columns\TextColumn::make('id')
                     ->numeric()
                     ->sortable(),
-                    Tables\Columns\TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
+                    // Tables\Columns\TextColumn::make('user_id')
+                    // ->numeric()
+                    // ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
@@ -91,6 +96,8 @@ class EmpResource extends Resource
                 Tables\Columns\TextColumn::make('number_of_hours_per_day')
                     ->numeric()
                     ->sortable(),
+                    Tables\Columns\IconColumn::make('is_admin')
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('day_off'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('project_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->text('description')->nullable();
-            $table->foreignId('sender_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('receiver_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('sender_id')->constrained('emps')->onDelete('cascade');
+            $table->foreignId('receiver_id')->constrained('emps')->onDelete('cascade');
             $table->integer('time_in_minutes')->nullable();
             $table->dateTime('start_date')->nullable();
             $table->timestamps();

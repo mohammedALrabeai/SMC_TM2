@@ -20,7 +20,11 @@ class ProjectResource extends Resource
 {
     protected static ?string $model = Project::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-folder';
+
+
+
 
     public static function form(Form $form): Form
     {
@@ -40,8 +44,8 @@ class ProjectResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('whatsapp_group_id')
-                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('whatsapp_group_id')
+                    ->maxLength(255),
                 Forms\Components\DatePicker::make('start_date'),
                 Forms\Components\DatePicker::make('end_date'),
             ]);

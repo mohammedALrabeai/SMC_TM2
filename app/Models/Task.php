@@ -17,17 +17,13 @@ class Task extends Model
         'is_recurring',
         'recurrence_interval_days',
         'next_occurrence',
+        'parent_id'
     ];
 
     // Define relationships
     public function project()
     {
-
-
         return $this->belongsTo(Project::class);
-
-
-
     }
 
     public function user_project()
@@ -101,6 +97,17 @@ public function task_emp_app()
     {
         return $this->hasMany(TaskFollowUp::class);
     }
+     // Define parent task relationship
+     public function parentTask()
+     {
+         return $this->belongsTo(Task::class, 'parent_id');
+     }
+
+     // Define child tasks relationship
+     public function childTasks()
+     {
+         return $this->hasMany(Task::class, 'parent_id');
+     }
 
  // Function to handle recurring tasks
  public static function handleRecurringTasks()

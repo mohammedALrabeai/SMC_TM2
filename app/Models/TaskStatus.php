@@ -10,7 +10,7 @@ class TaskStatus extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'name', 'only_for_admin',
+        'user_id', 'name', 'only_for_admin','is_completely','is_cancelled',
     ];
 
     // Define relationships
@@ -23,5 +23,5 @@ class TaskStatus extends Model
     {
         return $this->hasMany(Task::class);
     }
-    
+
 }

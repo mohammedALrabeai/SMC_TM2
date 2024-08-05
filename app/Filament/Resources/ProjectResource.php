@@ -8,6 +8,8 @@ use Filament\Tables;
 use App\Models\Project;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Infolists;
+use Filament\Infolists\Infolist;
 use App\Policies\ProjectPolicy;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
@@ -46,8 +48,60 @@ class ProjectResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('whatsapp_group_id')
                     ->maxLength(255),
+
+                Forms\Components\TextInput::make('insta_user'),
+                Forms\Components\TextInput::make('insta_pass'),
+                Forms\Components\TextInput::make('tiktok_user'),
+                Forms\Components\TextInput::make('tiktok_pass'),
+
+                Forms\Components\TextInput::make('snap_user'),
+                Forms\Components\TextInput::make('snap_pass'),
+                Forms\Components\TextInput::make('x_user'),
+                Forms\Components\TextInput::make('x_pass'),
+                Forms\Components\TextInput::make('facebook_user')
+                ->nullable()
+                ->maxLength(255),
+                Forms\Components\TextInput::make('instagram_pass'),
+
+
+
+
+
+                Forms\Components\TextInput::make('instagram_user'),
+                Forms\Components\TextInput::make('store_url'),
+                Forms\Components\TextInput::make('store_user'),
+                Forms\Components\TextInput::make('store_password'),
                 Forms\Components\DatePicker::make('start_date'),
                 Forms\Components\DatePicker::make('end_date'),
+            ]);
+    }
+    public static function infolist(Infolist $infolist): Infolist
+    {
+
+        return $infolist
+            ->schema([
+                Infolists\Components\TextEntry::make('user.name'),
+                    Infolists\Components\TextEntry::make('name'),
+                    Infolists\Components\TextEntry::make('whatsapp_group_id'),
+
+                    Infolists\Components\TextEntry::make('insta_user'),
+                    Infolists\Components\TextEntry::make('tiktok_user'),
+                    Infolists\Components\TextEntry::make('instagram_user'),
+                    Infolists\Components\TextEntry::make('snap_user'),
+                    Infolists\Components\TextEntry::make('x_user'),
+                    Infolists\Components\TextEntry::make('facebook_pass'),
+                    Infolists\Components\TextEntry::make('insta_pass'),
+                    Infolists\Components\TextEntry::make('tiktok_pass'),
+                    Infolists\Components\TextEntry::make('instagram_pass'),
+                    Infolists\Components\TextEntry::make('snap_pass'),
+                    Infolists\Components\TextEntry::make('x_pass'),
+
+                    Infolists\Components\TextEntry::make('store_url'),
+                    Infolists\Components\TextEntry::make('store_user'),
+                    Infolists\Components\TextEntry::make('store_password'),
+
+                    Infolists\Components\TextEntry::make('start_date'),
+                    Infolists\Components\TextEntry::make('end_date'),
             ]);
     }
 
@@ -84,6 +138,10 @@ class ProjectResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+
+                Tables\Actions\ViewAction::make(),
+
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -106,7 +164,10 @@ class ProjectResource extends Resource
         return [
             'index' => Pages\ListProjects::route('/'),
             'create' => Pages\CreateProject::route('/create'),
+            'view' => Pages\ViewProject::route('/{record}'),
+
             'edit' => Pages\EditProject::route('/{record}/edit'),
+
         ];
     }
 

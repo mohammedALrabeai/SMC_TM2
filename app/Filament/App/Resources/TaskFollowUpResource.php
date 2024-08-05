@@ -22,6 +22,7 @@ class TaskFollowUpResource extends Resource
     protected static ?string $model = TaskFollowUp::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {

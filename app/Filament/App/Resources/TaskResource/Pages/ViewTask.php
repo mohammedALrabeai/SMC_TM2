@@ -4,6 +4,7 @@ namespace App\Filament\App\Resources\TaskResource\Pages;
 
 use Filament\Forms;
 use Filament\Actions;
+
 use Filament\Actions\Action;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Textarea;
@@ -12,6 +13,8 @@ use Filament\Resources\Pages\ViewRecord;
 use Filament\Resources\Pages\CreateRecord;
 use App\Filament\App\Resources\TaskResource;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Tables\Actions\CreateAction;
+
 
 class ViewTask extends ViewRecord
 {
@@ -63,7 +66,11 @@ class ViewTask extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            
+            Action::make('create')
+            ->label('Create')
+            ->action(function () {
+                // Define your create action logic here
+            })
         ];
     }
 }

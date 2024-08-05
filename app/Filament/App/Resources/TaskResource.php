@@ -9,8 +9,11 @@ use Filament\Tables;
 use App\Models\Project;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables\Filters\Filter;
+use Filament\Infolists;
+
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Textarea;
@@ -31,10 +34,12 @@ class TaskResource extends Resource
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationIcon = 'heroicon-o-check-circle';
+    protected static ?int $navigationSort = 1;
 
 
     public static function form(Form $form): Form
     {
+        $userId = auth()->guard('emp')->user()->user_id;
         return $form
             ->schema([
                 Forms\Components\Select::make('project_id')
@@ -55,11 +60,44 @@ class TaskResource extends Resource
                 Forms\Components\TextInput::make('time_in_minutes')
                     ->numeric()
                     ->default(null),
+                    Forms\Components\Select::make('parent_id')
+                    ->label('Parent Task')
+                    ->options(function () use ($userId) {
+                        return Task::whereHas('project', function (Builder $query) use ($userId) {
+                            $query->where('user_id', $userId);
+                        })->pluck('title', 'id');
+                    }),
                 Forms\Components\Toggle::make('is_recurring')
                     ->required(),
                 Forms\Components\TextInput::make('recurrence_interval_days')
                     ->numeric()
                     ->default(null),
+            ]);
+    }
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Infolists\Components\TextEntry::make('title'),
+                Infolists\Components\TextEntry::make('description')
+                    ->columnSpan('full'),
+                Infolists\Components\TextEntry::make('sender_id'),
+                Infolists\Components\TextEntry::make('receiver_id'),
+                Infolists\Components\TextEntry::make('time_in_minutes')
+                    ->numeric(),
+                Infolists\Components\TextEntry::make('start_date')
+                    ->dateTime(),
+                Infolists\Components\IconEntry::make('is_recurring'),
+                Infolists\Components\TextEntry::make('recurrence_interval_days')
+                    ->numeric(),
+                Infolists\Components\TextEntry::make('next_occurrence')
+                    ->dateTime(),
+                Infolists\Components\TextEntry::make('parentTask.title'),
+
+                Infolists\Components\TextEntry::make('created_at')
+                    ->dateTime(),
+                Infolists\Components\TextEntry::make('updated_at')
+                    ->dateTime(),
             ]);
     }
 
@@ -140,7 +178,7 @@ class TaskResource extends Resource
                         });
                     }),
 
-            ],layout: FiltersLayout::AboveContent)
+            ],layout: FiltersLayout::AboveContentCollapsible)
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),

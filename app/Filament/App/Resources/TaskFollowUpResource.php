@@ -10,6 +10,7 @@ use App\Models\TaskStatus;
 use Filament\Tables\Table;
 use App\Models\TaskFollowUp;
 use Filament\Resources\Resource;
+use App\Services\WhatsAppService;
 use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\ValidationException;
@@ -22,7 +23,7 @@ class TaskFollowUpResource extends Resource
     protected static ?string $model = TaskFollowUp::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {
@@ -47,7 +48,8 @@ class TaskFollowUpResource extends Resource
                         $query->where('user_id', $userId);
                     })->pluck('title', 'id');
                 })
-                ->required(),
+                ->required()
+                ->searchable(),
                     Forms\Components\Select::make('task_status_id')
                     ->relationship('taskStatusForUser', 'name'),
                 Forms\Components\Textarea::make('note')
@@ -74,13 +76,16 @@ class TaskFollowUpResource extends Resource
                 Tables\Columns\TextColumn::make('task.title') // Assuming relationship is defined in TaskFollowUp model
                     ->label('Task Title')
                     ->sortable(),
+                    Tables\Columns\TextColumn::make('note') // Assuming relationship is defined in TaskFollowUp model
+                    ->label('Note')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('taskStatus.name') // Assuming relationship is defined in TaskFollowUp model
                     ->label('Task Status')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->sortable(),
+                    // ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
@@ -90,34 +95,43 @@ class TaskFollowUpResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make()
-                ->mutateFormDataUsing(function (array $data): array {
-                    // dd(auth()->guard('emp')->user());
-                    if (auth()->guard('emp')->user()->is_admin == 0) {
+                // Tables\Actions\EditAction::make()
+                // ->mutateFormDataUsing(function (array $data): array {
+                //     // dd(auth()->guard('emp')->user());
+                //     if (auth()->guard('emp')->user()->is_admin == 0) {
 
-                        $task_status = TaskStatus::where('id', $data['task_status_id'])->first();
-                        // dd($task_status);
-                        if ($task_status->only_for_admin == true) {
-                            Notification::make()
-                                ->title('ليس لديك صلاحية')
-                                ->danger()
-                                ->send();
+                //         $task_status = TaskStatus::where('id', $data['task_status_id'])->first();
+                //         // dd($task_status);
+                //         if ($task_status->only_for_admin == true) {
+                //             Notification::make()
+                //                 ->title('ليس لديك صلاحية')
+                //                 ->danger()
+                //                 ->send();
 
-                            throw ValidationException::withMessages([
-                                    'task_status_id' => 'ليس لديك صلاحية لتعيين هذا الحالة.',
-                            ]);
-                        }
+                //             throw ValidationException::withMessages([
+                //                     'task_status_id' => 'ليس لديك صلاحية لتعيين هذا الحالة.',
+                //             ]);
+                //         }
 
-                    }
-                    $data['emp_id'] = auth()->guard('emp')->id();
+                //     }
+                //     $data['emp_id'] = auth()->guard('emp')->id();
+                //     $phone_main = '966571718153';
+                //     $auth = '40703bb7812b727ec01c24f2da518c407342559c';
+                //     $profileId = 'aedd0dc2-8453';
+                //     $phone = $phone_main.'@c.us';
+                //     $message = 'test message';
 
-                    return $data;
-                }),
+                //     $response = WhatsAppService::send_with_wapi($auth, $profileId, $phone, $message);
+
+
+
+                //     return $data;
+                // }),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 

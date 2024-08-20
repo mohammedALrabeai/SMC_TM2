@@ -34,7 +34,7 @@ class TaskResource extends Resource
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationIcon = 'heroicon-o-check-circle';
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
 
     public static function form(Form $form): Form
@@ -43,16 +43,17 @@ class TaskResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('project_id')
-                    ->relationship('emp_project', 'name'),
+                    ->relationship('emp_project', 'name')
+                    ->searchable(),
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('description')
                     ->columnSpanFull(),
-                Forms\Components\Select::make('sender_id')
-                    ->relationship('task_emp_app', 'name')
-                    ->required()
-                    ->label('Sender Name'),
+                // Forms\Components\Select::make('sender_id')
+                //     ->relationship('task_emp_app', 'name')
+                //     ->required()
+                //     ->label('Sender Name'),
                 Forms\Components\Select::make('receiver_id')
                     ->relationship('task_emp_app', 'name')
                     ->required()
@@ -173,20 +174,20 @@ class TaskResource extends Resource
                     ->query(function (Builder $query): Builder {
                         $userId = auth()->id();
                         return $query->where(function($q) use ($userId) {
-                            $q->where('sender_id', $userId)
-                              ->orWhere('receiver_id', $userId);
+                            $q->where('receiver_id', $userId);
+                            //   ->orWhere('receiver_id', $userId);
                         });
                     }),
 
             ],layout: FiltersLayout::AboveContentCollapsible)
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 
@@ -202,7 +203,7 @@ class TaskResource extends Resource
         return [
             'index' => Pages\ListTasks::route('/'),
             'create' => Pages\CreateTask::route('/create'),
-            'edit' => Pages\EditTask::route('/{record}/edit'),
+            // 'edit' => Pages\EditTask::route('/{record}/edit'),
             'view' => Pages\ViewTask::route('/{record}'),
         ];
     }

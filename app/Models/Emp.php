@@ -12,7 +12,7 @@ class Emp extends  Authenticatable
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'name', 'phone', 'number_of_hours_per_day', 'day_off','email', 'password','is_admin'
+        'user_id', 'name', 'phone', 'number_of_hours_per_day', 'day_off','email', 'password','is_admin','post_url','sheet_api_url'
     ];
 
 

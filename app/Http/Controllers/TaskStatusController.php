@@ -38,7 +38,17 @@ class TaskStatusController extends Controller
 
         return response()->json($taskStatus, 201);
     }
+ // عرض حالات المهمة التابعة لـ user_id معين
+ public function getByUserId($user_id)
+ {
+     $taskStatuses = TaskStatus::where('user_id', $user_id)->get();
 
+     if ($taskStatuses->isEmpty()) {
+         return response()->json(['message' => 'No Task Statuses found for this user'], 404);
+     }
+
+     return response()->json($taskStatuses);
+ }
     // تحديث حالة مهمة
     public function update(Request $request, $id)
     {

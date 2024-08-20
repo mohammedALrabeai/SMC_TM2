@@ -4,10 +4,12 @@ namespace App\Filament\App\Resources\TaskFollowUpResource\Pages;
 
 use Filament\Actions;
 use App\Models\TaskStatus;
+use App\Services\WhatsAppService;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Validation\ValidationException;
 use App\Filament\App\Resources\TaskFollowUpResource;
+use App\Models\Emp;
 
 class ListTaskFollowUps extends ListRecords
 {
@@ -36,6 +38,17 @@ class ListTaskFollowUps extends ListRecords
 
                 }
                 $data['emp_id'] = auth()->guard('emp')->id();
+                // // $phone_main = '966571718153';
+                // $phone_main= Emp::where('id', $data['receiver_id'])->first()->phone;
+                // $auth = '40703bb7812b727ec01c24f2da518c407342559c';
+                // $profileId = 'aedd0dc2-8453';
+                // $phone = $phone_main.'@c.us';
+                // $message = 'test message';
+
+
+                // $response = WhatsAppService::send_with_wapi($auth, $profileId, $phone, $message);
+
+                // dd($response);
 
                 return $data;
             }),

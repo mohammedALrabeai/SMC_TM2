@@ -10,6 +10,7 @@ use Filament\Forms\Components\Builder;
 use Filament\Notifications\Notification;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use App\Services\WhatsAppService;
 use Illuminate\Validation\ValidationException;
 
 class TaskFollowUpsRelationManager extends RelationManager
@@ -71,7 +72,7 @@ class TaskFollowUpsRelationManager extends RelationManager
                     ->sortable(),
             ])
             ->filters([
-                //
+
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
@@ -113,6 +114,16 @@ class TaskFollowUpsRelationManager extends RelationManager
 
         $data['emp_id'] = auth()->guard('emp')->id();
 
+
+//         $phone_main = '966571718153';
+// $auth = '40703bb7812b727ec01c24f2da518c407342559c';
+// $profileId = 'aedd0dc2-8453';
+// $phone = $phone_main.'@c.us';
+// $message = 'test message';
+
+// $response = WhatsAppService::send_with_wapi($auth, $profileId, $phone, $message);
+
+// dd($response);
         return $data;
     }
 }

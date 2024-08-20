@@ -83,6 +83,7 @@ Route::get('/task-statuses/{id}', [TaskStatusController::class, 'show']);
 
 // إنشاء حالة مهمة جديدة
 Route::post('/task-statuses', [TaskStatusController::class, 'store']);
+Route::get('/task-status/user/{user_id}', [TaskStatusController::class, 'getByUserId']);
 
 // تحديث حالة مهمة
 Route::put('/task-statuses/{id}', [TaskStatusController::class, 'update']);

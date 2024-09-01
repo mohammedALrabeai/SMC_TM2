@@ -1,0 +1,132 @@
+<?php
+namespace App\Filament\App\Resources;
+
+use Filament\Forms;
+use Filament\Tables;
+use App\Models\ProjectPlan;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\DateColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\DatePicker;
+use Filament\Tables\Columns\BooleanColumn;
+// use RelationManagers\ProjectPlanDetailsRelationManager;
+use App\Filament\App\Resources\ProjectPlanResource\Pages;
+use App\Filament\App\Resources\ProjectPlanResource\RelationManagers;
+
+
+
+class ProjectPlanResource extends Resource
+{
+    protected static ?string $model = ProjectPlan::class;
+    protected static ?string $navigationGroup = 'Projects Management';
+    protected static ?int $navigationSort = 4;
+
+
+    protected static ?string $navigationIcon = 'heroicon-o-document';
+
+    public static function form(Forms\Form $form): Forms\Form
+    {
+        return $form
+            ->schema([
+                // select project
+                // Forms\Components\Select::make('project_id')
+                // ->relationship('emp_project', 'name')
+                // ->searchable(),
+                Select::make('project_id')
+                    ->relationship('emp_project', 'name')
+                    ->required()
+                    ->label('Project'),
+                TextInput::make('name')
+                    ->required()
+                    ->label('Plan Name'),
+                DatePicker::make('start_date')
+                    ->required()
+                    ->label('Start Date'),
+                DatePicker::make('end_date')
+                    ->required()
+                    ->label('End Date'),
+                    // Forms\Components\Select::make('receiver_id')
+                    // ->relationship('task_emp_app', 'name')
+                    // ->required()
+                    // ->label('Receiver Name'),
+                Select::make('moderator_id')
+                    ->relationship('moderator', 'name')
+                    ->required()
+                    ->label('Moderator'),
+                Select::make('copy_writer_id')
+                    ->relationship('copyWriter', 'name')
+                    ->label('Copy Writer'),
+                Select::make('media_buyer_id')
+                    ->relationship('mediaBuyer', 'name')
+                    ->label('Media Buyer'),
+                Select::make('graphic_designer_id')
+                    ->relationship('graphicDesigner', 'name')
+                    ->label('Graphic Designer'),
+                Select::make('video_designer_id')
+                    ->relationship('videoDesigner', 'name')
+                    ->label('Video Designer'),
+                Select::make('programmer_id')
+                    ->relationship('programmer', 'name')
+                    ->label('Programmer'),
+                Select::make('seo_specialist_id')
+                    ->relationship('seoSpecialist', 'name')
+                    ->label('SEO Specialist'),
+                TextInput::make('files_url')
+                    ->label('Files URL')
+                    ->url()
+                    ->nullable(),
+            ]);
+    }
+
+    public static function table(Tables\Table $table): Tables\Table
+    {
+        return $table
+            ->columns([
+
+                TextColumn::make('name')->label('Plan Name')->sortable()->searchable(),
+                // DateColumn::make('start_date')->label('Start Date')->sortable(),
+                // DateColumn::make('end_date')->label('End Date')->sortable(),
+                Tables\Columns\TextColumn::make('start_date')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+            Tables\Columns\TextColumn::make('end_date')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('moderator.name')->label('Moderator')->sortable(),
+                BooleanColumn::make('is_completed')->label('Completed')->sortable(),
+            ])
+            ->filters([
+                // Add any filters if needed
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\DeleteBulkAction::make(),
+            ]);
+    }
+
+    public static function getRelations(): array
+{
+    return [
+        RelationManagers\ProjectPlanDetailsRelationManager::class,
+
+    ];
+}
+
+
+public static function getPages(): array
+{
+    return [
+        'index' => Pages\ListProjectPlans::route('/'),
+        'create' => Pages\CreateProjectPlan::route('/create'),
+        'edit' => Pages\EditProjectPlan::route('/{record}/edit'),
+        // 'view' => Pages\ViewProjectPlan::route('/{record}'),
+    ];
+}
+
+}

@@ -81,7 +81,8 @@ class ProjectAttachmentResource extends Resource
                     ->label('Description'),
                 Tables\Columns\TextColumn::make('url')
                     ->label('URL')
-                    ->url(fn ($record) => $record->url),
+                    ->url(fn ($record) => $record->url)
+                    ->formatStateUsing(fn ($state) => 'Open'),
                     Tables\Columns\TextColumn::make('emp.name')  // Assuming 'name' is the attribute for employee's name
                     ->label('Employee Name')
                     ->sortable(),

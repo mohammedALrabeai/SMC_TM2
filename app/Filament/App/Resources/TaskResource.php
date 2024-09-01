@@ -69,10 +69,15 @@ class TaskResource extends Resource
                         })->pluck('title', 'id');
                     }),
                 Forms\Components\Toggle::make('is_recurring')
-                    ->required(),
+                    ->required()
+                    ->reactive(),
                 Forms\Components\TextInput::make('recurrence_interval_days')
                     ->numeric()
-                    ->default(null),
+                    ->default(null)
+                    ->required(fn ($get) => $get('is_recurring')),
+                    Forms\Components\Toggle::make('send_to_group')
+                    ->label('ارسال لجروب العميل'),
+                    // ->visible(fn ($get) => $get('is_recurring')),
             ]);
     }
     public static function infolist(Infolist $infolist): Infolist

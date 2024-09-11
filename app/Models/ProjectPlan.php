@@ -31,6 +31,11 @@ class ProjectPlan extends Model
         return $this->belongsTo(Project::class);
     }
 
+    public function emp()
+    {
+        return $this->belongsTo(Emp::class, 'emp_id')->where('user_id', auth()->user()->user_id);
+    }
+
 
     public function moderator()
     {

@@ -34,14 +34,17 @@ class ProjectPlanDetailResource extends Resource
                 //     ->label('Employee'),
                 TextInput::make('captions')
                     ->label('Captions')
-                    ->required(),
+                    ->required()
+                    ,
 
                 TextInput::make('hashtag')
                 ->label('Hashtag')
-                ->required(),
+                // ->required()
+                ,
                 Textarea::make('des')
                     ->label('Description')
-                    ->required(),
+                    // ->required()
+                    ,
                 Select::make('type')
                     ->options([
                         'post' => 'Post',
@@ -49,14 +52,23 @@ class ProjectPlanDetailResource extends Resource
                         'reel' => 'Reel',
                         'image' => 'Image',
                     ])
-                    ->required()
+                    // ->required()
                     ->label('Type'),
                 Select::make('platform')
                     ->multiple()
                     ->options([
-                        'facebook' => 'Facebook',
+                      'facebook' => 'Facebook',
                         'instagram' => 'Instagram',
+                        'whatsapp' => 'Whatsapp',
+                        'telegram' => 'Telegram',
+                        'snapchat' => 'Snapchat',
+
                         'tiktok' => 'TikTok',
+                        'youtube' => 'Youtube',
+                        'twitter' => 'Twitter',
+                        'linkedin' => 'Linkedin',
+                        'other' => 'Other',
+
                         // Add more platforms as needed
                     ])
                     ->required()

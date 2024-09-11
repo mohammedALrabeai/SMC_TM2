@@ -47,6 +47,8 @@ class ProjectPlanResource extends Resource
                 DatePicker::make('end_date')
                     ->required()
                     ->label('End Date'),
+                
+
                     // Forms\Components\Select::make('receiver_id')
                     // ->relationship('task_emp_app', 'name')
                     // ->required()
@@ -90,7 +92,7 @@ class ProjectPlanResource extends Resource
 
                 // DateColumn::make('start_date')->label('Start Date')->sortable(),
                 // DateColumn::make('end_date')->label('End Date')->sortable(),
-                TextColumn::make('moderator.name')->label('Moderator')->sortable(),
+                TextColumn::make('emp.name')->label('Employee')->sortable()->searchable(),
                 BooleanColumn::make('is_completed')->label('Completed')->sortable(),
                 Tables\Columns\TextColumn::make('start_date')
                 ->dateTime()
@@ -100,7 +102,7 @@ class ProjectPlanResource extends Resource
                 ->dateTime()
                 ->sortable()
                 ,
-                // TextColumn::make('moderator.name')->label('Moderator')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('moderator.name')->label('Moderator')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('copyWriter.name')->label('Copy Writer')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('mediaBuyer.name')->label('Media Buyer')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('graphicDesigner.name')->label('Graphic Designer')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),

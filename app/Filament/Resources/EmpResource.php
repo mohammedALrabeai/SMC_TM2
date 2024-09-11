@@ -36,7 +36,8 @@ class EmpResource extends Resource
                     ->required()
                     ->maxLength(255),
 
-                    Forms\Components\TextInput::make('sheet_api_url'),
+                    Forms\Components\TextInput::make('sheet_api_url')
+                    ->label('Sheet URL'),
                     Forms\Components\TextInput::make('post_url'),
                 // Forms\Components\DateTimePicker::make('email_verified_at'),
                 // Forms\Components\TextInput::make('password')
@@ -73,7 +74,7 @@ class EmpResource extends Resource
        "7" => 'Friday',
     ])
     ->multiple()
-  ->required(),
+    ->default([1, 2, 3, 4, 5, 6, 7]),
   Forms\Components\Toggle::make('is_admin')
   ->required(),
 

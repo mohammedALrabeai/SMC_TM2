@@ -44,6 +44,7 @@ class TaskResource extends Resource
             ->schema([
                 Forms\Components\Select::make('project_id')
                     ->relationship('emp_project', 'name')
+                    ->label('Project Name')
                     ->searchable(),
                 Forms\Components\TextInput::make('title')
                     ->required()
@@ -76,7 +77,7 @@ class TaskResource extends Resource
                     ->default(null)
                     ->required(fn ($get) => $get('is_recurring')),
                     Forms\Components\Toggle::make('send_to_group')
-                    ->label('ارسال لجروب العميل'),
+                    ->label('send to client group'),
                     // ->visible(fn ($get) => $get('is_recurring')),
             ]);
     }

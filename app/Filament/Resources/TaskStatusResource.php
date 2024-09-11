@@ -36,7 +36,7 @@ class TaskStatusResource extends Resource
                     ->maxLength(255),
                 Forms\Components\Toggle::make('only_for_admin')
                     ->required(),
-                    Forms\Components\Toggle::make('is_completely'),
+                    Forms\Components\Toggle::make('is_completely')->label('is completed'),
                     Forms\Components\Toggle::make('is_cancelled'),
 
             ]);
@@ -54,6 +54,7 @@ class TaskStatusResource extends Resource
                 Tables\Columns\IconColumn::make('only_for_admin')
                     ->boolean(),
                 Tables\Columns\IconColumn::make('is_completely')
+                ->label('is completed')
                     ->boolean(),
                 Tables\Columns\IconColumn::make('is_cancelled')
                     ->boolean(),

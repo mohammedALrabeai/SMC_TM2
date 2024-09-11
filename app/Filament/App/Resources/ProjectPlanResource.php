@@ -47,6 +47,8 @@ class ProjectPlanResource extends Resource
                 DatePicker::make('end_date')
                     ->required()
                     ->label('End Date'),
+                
+
                     // Forms\Components\Select::make('receiver_id')
                     // ->relationship('task_emp_app', 'name')
                     // ->required()
@@ -86,18 +88,29 @@ class ProjectPlanResource extends Resource
             ->columns([
 
                 TextColumn::make('name')->label('Plan Name')->sortable()->searchable(),
+                TextColumn::make('project.name')->label('Project')->sortable()->searchable(),
+
                 // DateColumn::make('start_date')->label('Start Date')->sortable(),
                 // DateColumn::make('end_date')->label('End Date')->sortable(),
+                TextColumn::make('emp.name')->label('Employee')->sortable()->searchable(),
+                BooleanColumn::make('is_completed')->label('Completed')->sortable(),
                 Tables\Columns\TextColumn::make('start_date')
                 ->dateTime()
                 ->sortable()
-                ->toggleable(isToggledHiddenByDefault: true),
+         ,
             Tables\Columns\TextColumn::make('end_date')
                 ->dateTime()
                 ->sortable()
-                ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('moderator.name')->label('Moderator')->sortable(),
-                BooleanColumn::make('is_completed')->label('Completed')->sortable(),
+                ,
+                TextColumn::make('moderator.name')->label('Moderator')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('copyWriter.name')->label('Copy Writer')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('mediaBuyer.name')->label('Media Buyer')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('graphicDesigner.name')->label('Graphic Designer')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('videoDesigner.name')->label('Video Designer')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('programmer.name')->label('Programmer')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('seoSpecialist.name')->label('SEO Specialist')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('files_url')->label('Files URL')->sortable()->toggleable(isToggledHiddenByDefault: true),
+           
             ])
             ->filters([
                 // Add any filters if needed

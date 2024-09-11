@@ -34,8 +34,10 @@ class TaskResource extends Resource
                 //     ->required()
                 //     ->numeric(),
                 Forms\Components\Select::make('project_id')
-                    ->relationship('user_project', 'name'),
+                    ->relationship('user_project', 'name')
+                    ->label('Project Name'),
                 Forms\Components\TextInput::make('title')
+                    
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('description')

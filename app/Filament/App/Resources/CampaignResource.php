@@ -39,20 +39,31 @@ class CampaignResource extends Resource
                 //     ->label('Employee'),
                 TextInput::make('campaign_type')
                     ->label('Campaign Type')
-                    ->required(),
+                    // ->required()
+                    ,
                 Select::make('platform')
                     ->options([
                         'facebook' => 'Facebook',
                         'instagram' => 'Instagram',
+                        'whatsapp' => 'Whatsapp',
+                        'telegram' => 'Telegram',
+                        'snapchat' => 'Snapchat',
+
                         'tiktok' => 'TikTok',
+                        'youtube' => 'Youtube',
+                        'twitter' => 'Twitter',
+                        'linkedin' => 'Linkedin',
+                        'other' => 'Other',
+                    
                         // Add more platforms as needed
                     ])
-                    ->required()
+                    // ->required()
                     ->label('Platform'),
                 TextInput::make('daily_spend')
                     ->label('Daily Spend')
                     ->numeric()
-                    ->required(),
+                    // ->required()
+                    ,
                 TextInput::make('landing_page_url')
                     ->label('Landing Page URL')
                     ->url()
@@ -63,15 +74,18 @@ class CampaignResource extends Resource
                     ->nullable(),
                 TextInput::make('area')
                     ->label('Area')
-                    ->required(),
+                    // ->required()
+                    ,
                 TextInput::make('location_url')
                     ->label('Location URL')
                     ->url()
-                    ->required(),
+                    // ->required()
+                    ,
                 TextInput::make('creatives_url')
                     ->label('Creatives URL')
                     ->url()
-                    ->required(),
+                    // ->required()
+                    ,
                 DatePicker::make('start_date')
                     ->label('Start Date')
                     ->required(),
@@ -87,9 +101,16 @@ class CampaignResource extends Resource
             ->columns([
                 TextColumn::make('name')->label('Campaign Name')->sortable()->searchable(),
                 TextColumn::make('project.name')->label('Project')->sortable()->searchable(),
-                TextColumn::make('employee.name')->label('Employee')->sortable()->searchable(),
+                TextColumn::make('emp.name')->label('Employee')->sortable()->searchable(),
                 TextColumn::make('campaign_type')->label('Campaign Type')->sortable(),
                 TextColumn::make('daily_spend')->label('Daily Spend')->sortable(),
+                TextColumn::make('platform')->label('Platform')->sortable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('landing_page_url')->label('Landing Page URL')->sortable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('sheet_url')->label('Sheet URL')->sortable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('area')->label('Area')->sortable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('location_url')->label('Location URL')->sortable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('creatives_url')->label('Creatives URL')->sortable()->toggleable(isToggledHiddenByDefault: true),
+                
                 Tables\Columns\TextColumn::make('start_date')
                 ->label('Start Date')
                 ->dateTime()

@@ -3,6 +3,34 @@ namespace App\Services;
 
 class WhatsAppService
 {
+
+    public static function getPlatformOptions(){
+        return [
+            'facebook' => 'Facebook',
+              'instagram' => 'Instagram',
+              'whatsapp' => 'Whatsapp',
+              'telegram' => 'Telegram',
+              'snapchat' => 'Snapchat',
+
+              'tiktok' => 'TikTok',
+              'youtube' => 'Youtube',
+              'twitter' => 'Twitter',
+              'linkedin' => 'Linkedin',
+              'other' => 'Other',
+
+              // Add more platforms as needed
+        ];
+    }
+    public static function getOptions(){
+        return [
+            'post' => 'Post',
+            'video' => 'Video',
+            'reel' => 'Reel',
+            'image' => 'Image',
+            'bio' => 'Bio',
+            'cover' => 'Cover',
+        ];
+    }
     public static function send_with_wapi($auth, $profileId, $phone, $message)
     {
         $curl = curl_init();

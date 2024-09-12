@@ -37,7 +37,7 @@ class EmpResource extends Resource
                     ->maxLength(255),
 
                     Forms\Components\TextInput::make('sheet_api_url')
-                    ->label('Sheet URL'),
+                    ->label('Google Sheet URL'),
                     Forms\Components\TextInput::make('post_url'),
                 // Forms\Components\DateTimePicker::make('email_verified_at'),
                 // Forms\Components\TextInput::make('password')

@@ -10,6 +10,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 use App\Filament\App\Resources\ProjectPlanDetailResource\Pages;
+use App\Services\WhatsAppService;
 
 class ProjectPlanDetailResource extends Resource
 {
@@ -46,31 +47,12 @@ class ProjectPlanDetailResource extends Resource
                     // ->required()
                     ,
                 Select::make('type')
-                    ->options([
-                        'post' => 'Post',
-                        'video' => 'Video',
-                        'reel' => 'Reel',
-                        'image' => 'Image',
-                    ])
+                ->options(WhatsAppService::getOptions())
                     // ->required()
                     ->label('Type'),
                 Select::make('platform')
                     ->multiple()
-                    ->options([
-                      'facebook' => 'Facebook',
-                        'instagram' => 'Instagram',
-                        'whatsapp' => 'Whatsapp',
-                        'telegram' => 'Telegram',
-                        'snapchat' => 'Snapchat',
-
-                        'tiktok' => 'TikTok',
-                        'youtube' => 'Youtube',
-                        'twitter' => 'Twitter',
-                        'linkedin' => 'Linkedin',
-                        'other' => 'Other',
-
-                        // Add more platforms as needed
-                    ])
+                    ->options(WhatsAppService::getPlatformOptions())
                     ->required()
                     ->label('Platform'),
                 Select::make('status')

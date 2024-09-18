@@ -22,7 +22,7 @@ class ProjectAttachment extends Model
 public function attach_project()
 {
 
-    $user=Emp::find(auth()->guard('emp')->user()->user_id);
+    $user=User::find(auth()->guard('emp')->user()->user_id);
 // dd($user);
     return $this->belongsTo(Project::class,'project_id')->where('user_id', $user->id);
 }

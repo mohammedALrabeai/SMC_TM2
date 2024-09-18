@@ -122,9 +122,9 @@ class ProjectResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.name')
-                    ->numeric()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('user.name')
+                //     ->numeric()
+                //     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('start_date')
@@ -133,6 +133,18 @@ class ProjectResource extends Resource
                 Tables\Columns\TextColumn::make('end_date')
                     ->date()
                     ->sortable(),
+                    TextColumn::make('whatsapp_group_id')->label('Whatsapp Group ID')->sortable()->toggleable(isToggledHiddenByDefault: true),
+                    Tables\Columns\TextColumn::make('insta_user')->label('Instagram User')->sortable()->toggleable(isToggledHiddenByDefault: true),
+                    Tables\Columns\TextColumn::make('tiktok_user')->label('Tiktok User')->sortable()->toggleable(isToggledHiddenByDefault: true),
+                    Tables\Columns\TextColumn::make('instagram_user')->label('Instagram User')->sortable()->toggleable(isToggledHiddenByDefault: true),
+                    Tables\Columns\TextColumn::make('snap_user')->label('Snap User')->sortable()->toggleable(isToggledHiddenByDefault: true),
+                    Tables\Columns\TextColumn::make('x_user')->label('X User')->sortable()->toggleable(isToggledHiddenByDefault: true),
+
+
+                    Tables\Columns\TextColumn::make('store_url')->label('Store URL')->sortable()->toggleable(isToggledHiddenByDefault: true),
+                    Tables\Columns\TextColumn::make('store_user')->label('Store User')->sortable()->toggleable(isToggledHiddenByDefault: true),
+                    // Tables\Columns\TextColumn::make('store_password')->label('Store Password')->sortable()->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

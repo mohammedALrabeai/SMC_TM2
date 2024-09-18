@@ -66,11 +66,11 @@ class ViewTask extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            Action::make('create')
-            ->label('Create')
-            ->action(function () {
-                // Define your create action logic here
-            })
+            // Action::make('create')
+            // ->label('Create')
+            // ->action(function () {
+            //     // Define your create action logic here
+            // })
         ];
     }
 }

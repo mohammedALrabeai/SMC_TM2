@@ -74,7 +74,7 @@ class EmpResource extends Resource
        "7" => 'Friday',
     ])
     ->multiple()
-    ->default([1, 2, 3, 4, 5, 6, 7]),
+    ->default([ 7]),
   Forms\Components\Toggle::make('is_admin')
   ->required(),
 
@@ -118,11 +118,12 @@ class EmpResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            // ->bulkActions([
+            //     Tables\Actions\BulkActionGroup::make([
+            //         Tables\Actions\DeleteBulkAction::make(),
+            //     ]),
+            // ])
+            ;
     }
 
     public static function getRelations(): array

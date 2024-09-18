@@ -92,6 +92,11 @@ class CampaignResource extends Resource
                 DatePicker::make('end_date')
                     ->label('End Date')
                     ->required(),
+                             
+            // إضافة مفتاح Toggle يظهر عند التعديل فقط
+            Forms\Components\Toggle::make('send_to_group')
+            ->label('إرسال إلى جروب العميل')
+            ->visible(fn ($livewire) => $livewire instanceof \App\Filament\App\Resources\CampaignResource\Pages\EditCampaign), // يظهر فقط في صفحة التعديل
             ]);
     }
 

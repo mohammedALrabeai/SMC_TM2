@@ -175,6 +175,45 @@ class TaskResource extends Resource
                                 fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
                     }),
+                    Filter::make('receiver_id')
+                    ->label('Receiver')
+                    ->form([
+                        Select::make('receiver')
+                            ->label('Receiver Name')
+                            ->options(function () {
+                                $userId = auth()->guard('emp')->user()->user_id; // الحصول على user_id الحالي
+                                return \App\Models\Emp::where('user_id', $userId) // جلب الموظفين التابعين للمستخدم الحالي
+                                    ->pluck('name', 'id')
+                                    ->toArray();
+                            })
+                            ->searchable(),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query->when(
+                            $data['receiver'],
+                            fn (Builder $query, $receiver): Builder => $query->where('receiver_id', $receiver)
+                        );
+                    }),
+                    Filter::make('project_id')
+                    ->label('Project Name')
+                    ->form([
+                        Select::make('project')
+                            ->label('Project Name')
+                            ->options(function () {
+                                $userId = auth()->guard('emp')->user()->user_id; // الحصول على user_id الحالي
+                                return \App\Models\Project::where('user_id', $userId) // جلب الموظفين التابعين للمستخدم الحالي
+                                    ->pluck('name', 'id')
+                                    ->toArray();
+                            })
+                            ->searchable(),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query->when(
+                            $data['project'],
+                            fn (Builder $query, $receiver): Builder => $query->where('project_id', $receiver)
+                        );
+                    }),
+
                 Filter::make('مهامي')
                     ->label('مهامي')
                     ->query(function (Builder $query): Builder {

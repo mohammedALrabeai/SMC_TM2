@@ -228,6 +228,20 @@ class TaskResource extends Resource
             ->actions([
                 // Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
+                // Tables\Actions\Action::make('clone')
+                // ->label('استنساج')
+                // // ->icon('heroicon-o-duplicate')
+                // ->action(function ($record, $livewire) {
+                //     // نسخ السجل الأصلي
+                //     $newTask = $record->replicate(); 
+                //     $newTask->title .= ' (نسخة)';
+                //     $newTask->save(); // حفظ السجل الجديد
+
+                //     // إعادة توجيه المستخدم إلى صفحة تعديل السجل الجديد
+                //     return redirect()->route('filament.resources.tasks.edit', $newTask);
+                // })
+                // ->requiresConfirmation(), // إضافة تأكيد قبل الاستنساج
+       
             ])
             ->bulkActions([
                 // Tables\Actions\BulkActionGroup::make([
@@ -248,7 +262,7 @@ class TaskResource extends Resource
         return [
             'index' => Pages\ListTasks::route('/'),
             'create' => Pages\CreateTask::route('/create'),
-            // 'edit' => Pages\EditTask::route('/{record}/edit'),
+            'edit' => Pages\EditTask::route('/{record}/edit'),
             'view' => Pages\ViewTask::route('/{record}'),
         ];
     }

@@ -48,6 +48,7 @@ class CreateTask extends CreateRecord
         $time_in_minutes = $data['time_in_minutes'];
         $title = $data['title'];
         $des = $data['description'];
+        $des= preg_replace("/\r\n|\r|\n/", '\\n', $des);
 // dd(User::find(auth()->guard('emp')->user()->user_id)->w_api_profile_id);
         // $message="تم تعديل المهمة رقم $i الى الحالة $status من قبل $emp";
         $message = "مهمة جديدة بعنوان: $title \\nمسند المهمة: $sender \\n مستلم المهمة: $reciver \\n وصف المهمة: $des \\n الزمن اللازم: $time_in_minutes دقيقة";

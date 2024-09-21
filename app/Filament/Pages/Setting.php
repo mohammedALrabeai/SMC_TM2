@@ -19,7 +19,7 @@ class Setting extends Page
     protected static ?string $navigationIcon = 'heroicon-o-user';
     protected static string $view = 'filament.pages.setting';
     protected static ?string $navigationLabel = 'Settings';
-    protected static ?string $navigationGroup = 'public';
+    protected static ?string $navigationGroup = 'General Settings';
 
     public $name;
     public $phone;

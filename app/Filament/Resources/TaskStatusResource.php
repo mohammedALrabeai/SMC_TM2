@@ -20,6 +20,10 @@ class TaskStatusResource extends Resource
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     // protected static ?string $navigationIcon = 'heroicon-o-check-badge';
     protected static ?string $navigationIcon = 'heroicon-o-check-circle';
+    protected static ?string $navigationGroup = 'General Settings';
+    // protected static ?string $navigationLabel = 'Task Statuses';
+
+
 
 
 

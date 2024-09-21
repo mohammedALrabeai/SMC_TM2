@@ -2,16 +2,22 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\EmpResource\Pages;
-use App\Filament\Resources\EmpResource\RelationManagers;
 use App\Models\Emp;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Exports\EmpsExport;
+use Filament\Resources\Resource;
+use App\Services\WhatsAppService;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Database\Eloquent\Collection;
+use Filament\Tables\Actions\BulkAction;
+use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\EmpResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\EmpResource\RelationManagers;
 
 class EmpResource extends Resource
 {
@@ -19,6 +25,7 @@ class EmpResource extends Resource
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?int $navigationSort = 0;
 
 
     public static function form(Form $form): Form
@@ -46,7 +53,8 @@ class EmpResource extends Resource
                 //     ->dehydrated(false)
                 //     ->maxLength(255),
                 Forms\Components\TextInput::make('password')
-                ->required()
+                // ->required()
+                ->dehydrated(true)
                 ->password()
                 ->label('Password')
                 ->dehydrateStateUsing(fn ($state) => \Hash::make($state)),
@@ -63,18 +71,16 @@ class EmpResource extends Resource
                 // Forms\Components\TextInput::make('day_off')
                 //     ->required(),
                 //add ldj
-                    Forms\Components\Select::make('day_off')
-    ->options([
-       "1" => 'Saturday',
-       "2"=> 'Sunday',
-       "3" => 'Monday',
-       "4" => 'Tuesday',
-       "5" => 'Wednesday',
-       "6" => 'Thursday',
-       "7" => 'Friday',
-    ])
-    ->multiple()
-    ->default([ 7]),
+                Forms\Components\Select::make('day_off')
+                ->options(WhatsAppService::getDaysOptions())
+                ->multiple()
+                ->default([7]) // القيمة الافتراضية في حالة الإنشاء
+                ->afterStateHydrated(function ($component, $state) {
+                    // هنا نعرض القيم المخزنة سابقًا عند التعديل
+                    $component->state(json_decode($state, true)); // تأكد من أن القيم مخزنة كـ JSON
+                })
+
+                ,
   Forms\Components\Toggle::make('is_admin')
   ->required(),
 
@@ -118,11 +124,26 @@ class EmpResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
-            // ->bulkActions([
+            ->bulkActions([
+                BulkAction::make('export')
+                ->label('Export to Excel')
+                // ->icon('heroicon-o-document-download')
+                ->action(function (Collection $records) {
+                    if ($records->isEmpty()) {
+                        Notification::make()
+                            ->title('No records selected!')
+                            ->danger()
+                            ->send();
+                        return;
+                    }
+
+                    // تحويل السجلات المختارة إلى array للتصدير
+                    return Excel::download(new EmpsExport($records), 'emps.xlsx');
+                }),
             //     Tables\Actions\BulkActionGroup::make([
             //         Tables\Actions\DeleteBulkAction::make(),
             //     ]),
-            // ])
+            ])
             ;
     }
 

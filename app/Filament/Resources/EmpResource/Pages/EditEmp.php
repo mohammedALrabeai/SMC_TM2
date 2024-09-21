@@ -22,9 +22,9 @@ class EditEmp extends EditRecord
     }
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        // $data['user_id'] = auth()->id();
+        $data['user_id'] = auth()->id();
 
-        $data['day_off'] = implode(',', $data['day_off']);
+        // $data['day_off'] = implode(',', $data['day_off']);
 
         return $data;
     }

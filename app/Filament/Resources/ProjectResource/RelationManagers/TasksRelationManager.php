@@ -30,6 +30,11 @@ class TasksRelationManager extends RelationManager
             ->recordTitleAttribute('title')
             ->columns([
                 Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('sender.name'),
+                Tables\Columns\TextColumn::make('receiver.name'),
+Tables\Columns\TextColumn::make('lastFollowUp.taskStatus.name'),
+                Tables\Columns\TextColumn::make('created_at'),
+
             ])
             ->filters([
                 //

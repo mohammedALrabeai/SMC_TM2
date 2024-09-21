@@ -23,7 +23,7 @@ class TaskResource extends Resource
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationIcon = 'heroicon-o-check-circle';
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
 
     public static function form(Form $form): Form
@@ -37,7 +37,7 @@ class TaskResource extends Resource
                     ->relationship('user_project', 'name')
                     ->label('Project Name'),
                 Forms\Components\TextInput::make('title')
-                    
+
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('description')
@@ -61,7 +61,7 @@ class TaskResource extends Resource
                 Forms\Components\TextInput::make('recurrence_interval_days')
                     ->numeric()
                     ->default(null),
-                   
+
                 // Forms\Components\DateTimePicker::make('next_occurrence'),
             ]);
     }

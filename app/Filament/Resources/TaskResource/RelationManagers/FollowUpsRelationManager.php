@@ -32,6 +32,7 @@ class FollowUpsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('emp.name')
                 ->label('Employee') // Optional label
                 ->sortable(),
+           
 
                 Tables\Columns\TextColumn::make('taskStatus.name')
                 ->label('Task Status') // Optional label

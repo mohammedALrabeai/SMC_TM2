@@ -6,14 +6,18 @@ use Filament\Forms;
 use App\Models\User;
 use Filament\Tables;
 use App\Models\Project;
+use Filament\Infolists;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Filament\Infolists;
-use Filament\Infolists\Infolist;
+use App\Exports\ProjectsExport;
 use App\Policies\ProjectPolicy;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
+use Maatwebsite\Excel\Facades\Excel;
+use Filament\Tables\Actions\BulkAction;
 use Illuminate\Database\Eloquent\Builder;
 use RelationManagers\UsersRelationManager;
+use Illuminate\Database\Eloquent\Collection;
 use App\Filament\Resources\ProjectResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ProjectResource\RelationManagers;
@@ -24,6 +28,7 @@ class ProjectResource extends Resource
 
     // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationIcon = 'heroicon-o-folder';
+    protected static ?int $navigationSort = 1;
 
 
 
@@ -157,6 +162,13 @@ class ProjectResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+                BulkAction::make('export')
+                ->label('تصدير إلى Excel')
+                // ->icon('heroicon-o-document-download')
+                ->action(function (Collection $records) {
+                    // تصدير السجلات المختارة إلى ملف Excel
+                    return Excel::download(new ProjectsExport($records), 'projects.xlsx');
+                }),
             ]);
     }
 

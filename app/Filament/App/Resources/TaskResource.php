@@ -7,22 +7,26 @@ use App\Models\Task;
 use App\Models\User;
 use Filament\Tables;
 use App\Models\Project;
+use Filament\Infolists;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Exports\TasksExport;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
-use Filament\Tables\Filters\Filter;
-use Filament\Infolists;
 
+use Filament\Tables\Filters\Filter;
+use Maatwebsite\Excel\Facades\Excel;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Textarea;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Forms\Components\DatePicker;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Filament\Forms\Components\DateTimePicker;
 use App\Filament\App\Resources\TaskResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -45,7 +49,12 @@ class TaskResource extends Resource
                 Forms\Components\Select::make('project_id')
                     ->relationship('emp_project', 'name')
                     ->label('Project Name')
-                    ->searchable(),
+                    ->searchable()
+                    ->preload(),
+                    // Select::make('project_id')
+                    // ->relationship('emp_project', 'name')
+                    // ->required()
+                    // ->label('Project'),
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
@@ -62,20 +71,20 @@ class TaskResource extends Resource
                 Forms\Components\TextInput::make('time_in_minutes')
                     ->numeric()
                     ->default(null),
-                    Forms\Components\Select::make('parent_id')
-                    ->label('Parent Task')
-                    ->options(function () use ($userId) {
-                        return Task::whereHas('project', function (Builder $query) use ($userId) {
-                            $query->where('user_id', $userId);
-                        })->pluck('title', 'id');
-                    }),
+                    // Forms\Components\Select::make('parent_id')
+                    // ->label('Parent Task')
+                    // ->options(function () use ($userId) {
+                    //     return Task::whereHas('project', function (Builder $query) use ($userId) {
+                    //         $query->where('user_id', $userId);
+                    //     })->pluck('title', 'id');
+                    // }),
                 Forms\Components\Toggle::make('is_recurring')
                     ->required()
                     ->reactive(),
-                Forms\Components\TextInput::make('recurrence_interval_days')
-                    ->numeric()
-                    ->default(null)
-                    ->required(fn ($get) => $get('is_recurring')),
+                // Forms\Components\TextInput::make('recurrence_interval_days')
+                //     ->numeric()
+                //     ->default(null)
+                //     ->required(fn ($get) => $get('is_recurring')),
                     Forms\Components\Toggle::make('send_to_group')
                     ->label('send to client group'),
                     // ->visible(fn ($get) => $get('is_recurring')),
@@ -233,7 +242,7 @@ class TaskResource extends Resource
                 // // ->icon('heroicon-o-duplicate')
                 // ->action(function ($record, $livewire) {
                 //     // نسخ السجل الأصلي
-                //     $newTask = $record->replicate(); 
+                //     $newTask = $record->replicate();
                 //     $newTask->title .= ' (نسخة)';
                 //     $newTask->save(); // حفظ السجل الجديد
 
@@ -241,9 +250,16 @@ class TaskResource extends Resource
                 //     return redirect()->route('filament.resources.tasks.edit', $newTask);
                 // })
                 // ->requiresConfirmation(), // إضافة تأكيد قبل الاستنساج
-       
+
             ])
             ->bulkActions([
+                BulkAction::make('export')
+                ->label('تصدير إلى Excel')
+                // ->icon('heroicon-o-document-download')
+                ->action(function (Collection $records) {
+                    // تصدير السجلات المختارة إلى ملف Excel
+                    return Excel::download(new TasksExport($records), 'tasks.xlsx');
+                }),
                 // Tables\Actions\BulkActionGroup::make([
                 //     Tables\Actions\DeleteBulkAction::make(),
                 // ]),

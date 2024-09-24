@@ -29,6 +29,7 @@ class Setting extends Page
     public $w_api_profile_id;
     public $w_api_token;
     public $work_group;
+    public $company_policy;
 
     protected function getFormSchema(): array
     {
@@ -60,7 +61,11 @@ class Setting extends Page
             // ->required()
             ->default($this->work_group),
 
-
+            Textarea::make('company_policy')
+    ->label('Company Policy')
+    ->placeholder('Enter company policy')
+    ->rows(5) // يمكنك تحديد عدد الأسطر
+    ->required(false),
             Toggle::make('enable_whatsapp_notifications')
             ->label('Activate sending notifications to WhatsApp')
             ->default($user->enable_whatsapp_notifications==1 ?1: 0),
@@ -91,6 +96,7 @@ class Setting extends Page
     $this->w_api_token = $user->w_api_token;
     $this->w_api_profile_id = $user->w_api_profile_id;
     $this->work_group = $user->work_group;
+    $this->company_policy = $user->company_policy;
 }
 
     public function saveProfile()
@@ -107,6 +113,7 @@ class Setting extends Page
             'enable_whatsapp_notifications' => ($data['enable_whatsapp_notifications']),
             'enable_group_notifications' =>($data['enable_group_notifications']),
             'enable_employee_notifications' => ($data['enable_employee_notifications']),
+            'company_policy' => $data['company_policy'],
         ]);
 
         // $this->notify('success', 'تم تحديث البروفايل بنجاح!');

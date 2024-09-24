@@ -20,7 +20,7 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name', 'email', 'password', 'phone', 'w_api_token', 'w_api_profile_id', 'end_date_subscription', 'type',
-       'enable_whatsapp_notifications', 'enable_group_notifications', 'enable_employee_notifications','work_group'
+       'enable_whatsapp_notifications', 'enable_group_notifications', 'enable_employee_notifications','work_group','company_policy'
     ];
 
     // Define relationships

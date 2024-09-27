@@ -26,6 +26,7 @@ class SendCompanyPolicy extends Widget
         $emp = auth()->user();  // Get the current user
         // $company_policy = "test";  // Example company policy content
         $company_policy = $emp->company_policy;
+        $company_policy= preg_replace("/\r\n|\r|\n/", ' \\n ', $company_policy);
         $auth = $emp->w_api_token;
         $profileId = $emp->w_api_profile_id;
 

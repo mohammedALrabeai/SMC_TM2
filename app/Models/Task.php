@@ -17,7 +17,7 @@ class Task extends Model
         'is_recurring',
         'recurrence_interval_days',
         'next_occurrence',
-        'parent_id'
+        'parent_id','exact_time'
     ];
 
     // Define relationships

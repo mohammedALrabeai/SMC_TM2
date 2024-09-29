@@ -60,6 +60,7 @@ class TaskResource extends Resource
                     ->maxLength(255),
                 Forms\Components\Textarea::make('description')
                     ->columnSpanFull(),
+
                 // Forms\Components\Select::make('sender_id')
                 //     ->relationship('task_emp_app', 'name')
                 //     ->required()
@@ -71,6 +72,9 @@ class TaskResource extends Resource
                 Forms\Components\TextInput::make('time_in_minutes')
                     ->numeric()
                     ->default(null),
+                    Forms\Components\TextInput::make('exact_time')
+                    ->numeric()
+                    ->default(0),
                     // Forms\Components\Select::make('parent_id')
                     // ->label('Parent Task')
                     // ->options(function () use ($userId) {
@@ -145,6 +149,9 @@ class TaskResource extends Resource
             //     ->numeric()
             //     ->sortable(),
             Tables\Columns\TextColumn::make('time_in_minutes')
+                ->numeric()
+                ->sortable(),
+                Tables\Columns\TextColumn::make('exact_time')
                 ->numeric()
                 ->sortable(),
             Tables\Columns\TextColumn::make('start_date')

@@ -26,14 +26,17 @@ class SendCompanyPolicy extends Widget
         $emp = auth()->user();  // Get the current user
         // $company_policy = "test";  // Example company policy content
         $company_policy = $emp->company_policy;
-        $company_policy= preg_replace("/\r\n|\r|\n/", ' \\n ', $company_policy);
+        $company_policy= preg_replace('/\r\n|\r|\n/', " \\n ",$company_policy);
+
+        // $company_policy = str_replace("\n", "\\n", $company_policy);
+        // dd($company_policy);
         $auth = $emp->w_api_token;
         $profileId = $emp->w_api_profile_id;
 
         if ($emp->work_group != null && $emp->work_group != '') {
             $genral_group = $emp->work_group;
             $response = WhatsAppService::send_with_wapi($auth, $profileId, $genral_group, $company_policy);
-
+// dd($response);
             // Check if the response was successful
             if ($response) {
                 // Show a success notification using Filament Notifications

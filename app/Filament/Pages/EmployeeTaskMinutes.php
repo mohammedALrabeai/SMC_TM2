@@ -1,24 +1,30 @@
 <?php
-
 namespace App\Filament\Pages;
 
 use App\Models\Emp;
-use App\Models\Task;
 use Filament\Pages\Page;
-use Illuminate\Support\Facades\DB;
 
 class EmployeeTaskMinutes extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-clock';
     protected static string $view = 'filament.pages.employee-task-minutes';
     public $employees;
+
     public function mount()
     {
-        // Fetch employees with the sum of task minutes
-        $this->employees = Emp::with('sentTasks')
-            ->withSum('sentTasks', 'time_in_minutes')
-            ->get();
+        $startDate = request('start_date');
+        $endDate = request('end_date');
+
+        $query = Emp::with('sentTasks')
+            ->withSum(['sentTasks' => function ($query) use ($startDate, $endDate) {
+                if ($startDate) {
+                    $query->whereDate('created_at', '>=', $startDate);
+                }
+                if ($endDate) {
+                    $query->whereDate('created_at', '<=', $endDate);
+                }
+            }], 'time_in_minutes');
+
+        $this->employees = $query->get();
     }
-
-
 }

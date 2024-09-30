@@ -74,15 +74,21 @@ class EmpResource extends Resource
                 Forms\Components\Select::make('day_off')
                 ->options(WhatsAppService::getDaysOptions())
                 ->multiple()
-                ->default([7]) // القيمة الافتراضية في حالة الإنشاء
+                ->default([7])
                 ->afterStateHydrated(function ($component, $state) {
-                    // هنا نعرض القيم المخزنة سابقًا عند التعديل
-                    $component->state(json_decode($state, true)); // تأكد من أن القيم مخزنة كـ JSON
-                })
-
-                ,
+                    if (is_string($state)) {
+                        // فك التشفير إذا كانت الحالة سلسلة JSON
+                        $component->state(json_decode($state, true));
+                    } else {
+                        // في حال كانت بالفعل مصفوفة، نحتفظ بالقيمة كما هي
+                        $component->state($state);
+                    }
+                }),
   Forms\Components\Toggle::make('is_admin')
   ->required(),
+  Forms\Components\Toggle::make('can_show')
+  ->label('Can view other employees\' tasks')
+  ->default(false),
 
             ]);
     }

@@ -179,6 +179,8 @@ class TaskResource extends Resource
         if (auth()->user()->type == "super admin") {
             return parent::getEloquentQuery();
         }
+
+
         // return parent::getEloquentQuery();
         // // ->join('projects', 'tasks.project_id', '=', 'projects.id')
         // // ->where('projects.user_id', auth()->user()->id)
@@ -186,7 +188,8 @@ class TaskResource extends Resource
         $userId;
         if (auth()->guard('emp')->check()) {
             $userId = auth()->guard('emp')->user_id;
-            // You can now use $userId
+          
+
         } else {
             $userId = auth()->user()->id;
             // Handle the case where the user is not authenticated

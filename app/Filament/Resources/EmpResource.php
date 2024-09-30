@@ -89,6 +89,9 @@ class EmpResource extends Resource
   Forms\Components\Toggle::make('can_show')
   ->label('Can view other employees\' tasks')
   ->default(false),
+  Forms\Components\Toggle::make('is_active')
+  ->label('Active')
+  ->default(true),
 
             ]);
     }
@@ -113,6 +116,9 @@ class EmpResource extends Resource
                     ->numeric()
                     ->sortable(),
                     Tables\Columns\IconColumn::make('is_admin')
+                    ->boolean(),
+                    Tables\Columns\IconColumn::make('is_active') // عرض حالة التفعيل
+                    ->label('Active')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('day_off'),
                 Tables\Columns\TextColumn::make('created_at')

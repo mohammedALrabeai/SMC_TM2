@@ -21,6 +21,8 @@ class SendCompanyPolicy extends Widget
     //     $this->dispatchBrowserEvent('show-confirmation');
     // }
 
+
+
     public function sendCompanyPolicy(): ?string
     {
         $emp = auth()->user();  // Get the current user

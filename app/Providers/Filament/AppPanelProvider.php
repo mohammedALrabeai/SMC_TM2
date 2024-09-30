@@ -17,6 +17,8 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\Http\Middleware\CheckEmpIsActive;
+
 
 class AppPanelProvider extends PanelProvider
 {
@@ -53,9 +55,12 @@ class AppPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+            
+                CheckEmpIsActive::class
             ])
             ->authMiddleware([
                 Authenticate::class,
+                CheckEmpIsActive::class,
 
             ]);
     }

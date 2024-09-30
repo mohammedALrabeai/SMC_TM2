@@ -14,6 +14,7 @@ class OpenLinkWidget extends Widget
 
     public function getSheetApiUrl(): ?string
     {
+       
         $emp =  auth()->guard('emp')->user(); // جلب المستخدم الحالي
         return $emp ? $emp->sheet_api_url : null; // جلب الرابط إذا كان موجوداً
     }

@@ -23,7 +23,15 @@ class EmployeeTaskMinutes extends Page
                 if ($endDate) {
                     $query->whereDate('created_at', '<=', $endDate);
                 }
-            }], 'time_in_minutes');
+            }], 'time_in_minutes')
+            ->withSum(['sentTasks' => function ($query) use ($startDate, $endDate) {
+                if ($startDate) {
+                    $query->whereDate('created_at', '>=', $startDate);
+                }
+                if ($endDate) {
+                    $query->whereDate('created_at', '<=', $endDate);
+                }
+            }], 'exact_time'); // إضافة جمع exact_time
 
         $this->employees = $query->get();
     }

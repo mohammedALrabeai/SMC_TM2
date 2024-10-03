@@ -28,34 +28,44 @@ class TaskFollowUpResource extends Resource
     public static function form(Form $form): Form
     {
         $userId = auth()->guard('emp')->user()->user_id;
+    
         return $form
             ->schema([
-                // // Forms\Components\TextInput::make('emp_id')
-                // //     ->required()
-                // //     ->numeric(),
-                //     Forms\Components\Select::make('task_id')
-                //     ->relationship('task', 'title'),
-                // // Forms\Components\TextInput::make('task_id')
-                // //     ->required()
-                // //     ->numeric(),
-                // // Forms\Components\TextInput::make('task_status_id')
-                // //     ->required()
-                // //     ->numeric(),
                 Forms\Components\Select::make('task_id')
-                ->label('Task')
-                ->options(function () use ($userId) {
-                    return Task::whereHas('project', function (Builder $query) use ($userId) {
-                        $query->where('user_id', $userId);
-                    })->pluck('title', 'id');
-                })
-                ->required()
-                ->searchable(),
-                    Forms\Components\Select::make('task_status_id')
-                    ->relationship('taskStatusForUser', 'name'),
+                    ->label('Task')
+                    ->options(function () use ($userId) {
+                        return Task::whereHas('project', function (Builder $query) use ($userId) {
+                            $query->where('user_id', $userId);
+                        })->pluck('title', 'id');
+                    })
+                    ->required()
+                    ->searchable(),
+    
+                Forms\Components\Select::make('task_status_id')
+                    ->relationship('taskStatusForUser', 'name')
+                    ->required()
+                    ->reactive() // لجعل القائمة التفاعلية
+                    ->afterStateUpdated(function (callable $set, $state) {
+                        $taskStatus = TaskStatus::find($state);
+                        $set('is_completed', $taskStatus && $taskStatus->is_completely); // تعيين إذا كانت الحالة مكتملة
+                    }),
+    
                 Forms\Components\Textarea::make('note')
                     ->columnSpanFull(),
-            ]);
+    
+                Forms\Components\TextInput::make('exact_time')
+                    ->label('Exact Time (minutes)')
+                    ->numeric()
+                    ->minValue(0)
+                    ->required(fn (callable $get) => $get('is_completed')) // إجبارية الحقل إذا كانت المهمة مكتملة
+                    ->hidden(fn (callable $get) => !$get('is_completed')) // إخفاء الحقل إذا لم تكن الحالة مكتملة
+                    ->reactive(), // لجعل الحقل يتفاعل مع التغييرات
+            ])
+            ->statePath('data'); // للتأكد من عدم تأثير الحالة المؤقتة على البيانات
     }
+    
+    
+    
 
     public static function table(Table $table): Table
     {
@@ -146,7 +156,7 @@ class TaskFollowUpResource extends Resource
     {
         return [
             'index' => Pages\ListTaskFollowUps::route('/'),
-            // 'create' => Pages\CreateTaskFollowUp::route('/create'),
+            'create' => Pages\CreateTaskFollowUp::route('/create'),
             // 'edit' => Pages\EditTaskFollowUp::route('/{record}/edit'),
         ];
     }

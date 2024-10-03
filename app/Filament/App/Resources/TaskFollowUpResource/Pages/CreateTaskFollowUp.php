@@ -6,12 +6,21 @@ use Filament\Actions;
 use App\Services\WhatsAppService;
 use Filament\Resources\Pages\CreateRecord;
 use App\Filament\App\Resources\TaskFollowUpResource;
+use App\Models\Task;
+
 
 class CreateTaskFollowUp extends CreateRecord
 {
     protected static string $resource = TaskFollowUpResource::class;
     protected function mutateFormDataBeforeCreate(array $data): array
 {
+    $data['emp_id'] = auth()->guard('emp')->id();
+
+      // تحديث حقل exact_time في جدول tasks
+      if (!empty($data['exact_time'])) {
+        Task::where('id', $data['task_id'])->update(['exact_time' => $data['exact_time']]);
+    }
+
 // dd( auth()->guard('emp'));
 //     $data['emp_id'] = auth()->guard('emp')->id();
 

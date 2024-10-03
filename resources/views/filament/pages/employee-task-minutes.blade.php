@@ -5,7 +5,11 @@
         <form method="GET" action="{{ url()->current() }}" class="flex items-center space-x-4">
             <input type="date" name="start_date" class="p-2 rounded-md bg-gray-200 dark:bg-gray-800 dark:text-gray-300 text-gray-900" value="{{ request('start_date') }}">
             <input type="date" name="end_date" class="p-2 rounded-md bg-gray-200 dark:bg-gray-800 dark:text-gray-300 text-gray-900" value="{{ request('end_date') }}">
-            <button type="submit" class="bg-indigo-600 text-white p-2 rounded-md hover:bg-indigo-500 transition duration-200 dark:bg-indigo-500 dark:hover:bg-indigo-400">Filter</button>
+            
+            <!-- زر الفلترة -->
+            <button type="submit" class="bg-blue-600 text-black p-2 rounded-md hover:bg-blue-700 transition duration-200 dark:bg-yellow-400 dark:text-black dark:hover:bg-yellow-500">
+                Filter
+            </button>
         </form>
     </div>
 
@@ -17,8 +21,8 @@
                     <th class="py-4 px-6 text-left text-sm uppercase font-semibold tracking-wider">Total Minutes</th>
                     <th class="py-4 px-6 text-left text-sm uppercase font-semibold tracking-wider">Total Hours</th>
                     <th class="py-4 px-6 text-left text-sm uppercase font-semibold tracking-wider">Exact Time (mins)</th>
-                    <th class="py-4 px-6 text-left text-sm uppercase font-semibold tracking-wider">Exact Time (hrs)</th> <!-- العمود الجديد لعرض exact_time بالساعات -->
-                    <th class="py-4 px-6 text-left text-sm uppercase font-semibold tracking-wider">Difference (hrs)</th> <!-- العمود الجديد لعرض الفارق بين الساعات -->
+                    <th class="py-4 px-6 text-left text-sm uppercase font-semibold tracking-wider">Exact Time (hrs)</th>
+                    <th class="py-4 px-6 text-left text-sm uppercase font-semibold tracking-wider">Difference (hrs)</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -31,10 +35,10 @@
                         </td>
                         <td class="py-4 px-6 text-gray-700 dark:text-gray-400">{{ $employee->sent_tasks_sum_exact_time ?? 0 }} mins</td>
                         <td class="py-4 px-6 text-gray-700 dark:text-gray-400">
-                            {{ number_format(($employee->sent_tasks_sum_exact_time ?? 0) / 60, 2) }} hrs <!-- عرض exact_time بالساعات -->
+                            {{ number_format(($employee->sent_tasks_sum_exact_time ?? 0) / 60, 2) }} hrs
                         </td>
                         <td class="py-4 px-6 text-gray-700 dark:text-gray-400">
-                            {{ number_format((($employee->sent_tasks_sum_time_in_minutes ?? 0) - ($employee->sent_tasks_sum_exact_time ?? 0)) / 60, 2) }} hrs <!-- حساب الفارق بالساعات -->
+                            {{ number_format((($employee->sent_tasks_sum_time_in_minutes ?? 0) - ($employee->sent_tasks_sum_exact_time ?? 0)) / 60, 2) }} hrs
                         </td>
                     </tr>
                 @endforeach

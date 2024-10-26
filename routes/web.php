@@ -7,7 +7,7 @@ use App\Models\Emp;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home/index');
 });
 Route::get('/emp-login', EmpLogin::class)->name('emp.login');
 

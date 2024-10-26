@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Golo | Workspace Listing</title>
+    <title>Taskellow | للتسويق</title>
     <meta name="robots" content="index, follow"/>
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
@@ -13,8 +13,9 @@
     <!-- favicons -->
     <link rel="shortcut icon" href="{{asset('home/favicon.png')}}">
 
+
     <!-- Style CSS -->
-    <link rel="stylesheet" type="text/css" href="{{asset('home/fonts/jost/stylesheet.css')}}"/>
+    {{--    <link rel="stylesheet" type="text/css" href="{{asset('home/fonts/jost/stylesheet.css')}}"/>--}}
     <link rel="stylesheet" type="text/css" href="{{asset('home/libs/line-awesome/css/line-awesome.min.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('home/libs/fontawesome-pro/css/fontawesome.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('home/libs/bootstrap/css/bootstrap-rtl.min.css')}}"/>
@@ -27,7 +28,12 @@
     <link rel="stylesheet" type="text/css" href="{{asset('home/libs/datetimepicker/jquery.datetimepicker.min.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('home/libs/venobox/venobox.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('home/css/style.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{asset('home/css/responsive.css')}}"/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
     <!-- jQuery -->
     <script src="{{asset('home/js/jquery-1.12.4.js')}}"></script>
     <script src="{{asset('home/libs/popper/popper.js')}}"></script>
@@ -85,8 +91,9 @@
                                     </div><!-- .popup__menu -->
                                 </div><!-- .popup__content -->
                                 <div class="popup__button popup__box">
-                                    <a title="Add place" href="add-place.html" class="btn">
-
+                                    <a title="Add place"
+                                       href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, أريد تجربة مجانية في Taskellow"
+                                       class="btn">
                                         <span>تواصل معنا</span>
                                     </a>
                                 </div><!-- .popup__button -->
@@ -121,7 +128,8 @@
                             </ul>
                         </nav>
                         <div class="right-header__button btn">
-                            <a title="Add place" href="add-place.html">
+                            <a title="Add place"
+                               href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, أريد تجربة مجانية في Taskellow">
                                 <i class="las la-plus la-24-white"></i>
                                 <span>تواصل معنا</span>
                             </a>
@@ -141,7 +149,8 @@
                     <div class="title-wrap"> مجموعة متكاملة من الأدوات والميزات المصممة <strong>لتلبية احتياجات</strong>
                         شركات التسويق
                     </div>
-
+                    <a href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, أريد تجربة مجانية في Taskellow"
+                       class="btn" title="View more">تجربة مجانية</a>
                 </div><!-- .site-banner__content -->
             </div>
         </section><!-- .site-banner -->
@@ -468,81 +477,88 @@
                     <h2>تواصل معنا</h2>
                     <p>لا تتردد في التواصل معنا لأي استفسارات أو دعم
                         فني.</p>
-                    <a href="#" class="btn">تواصل معنا</a>
+                    <a href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, أريد تجربة مجانية في Taskellow"
+                       class="btn">تواصل معنا</a>
                 </div>
             </div>
         </section><!-- .banner-wrap -->
-        <section class="blogs-wrap layout-02" id="blog">
-            <div class="container">
-                <div class="title-wrap align-center">
-                    <h2>الأخبار</h2>
-                </div>
-                <div class="blog-wrap offset-item">
-                    <div class="row">
-                        <div class="col-12 col-lg-4">
-                            <article class="post hover__box">
-                                <div class="post__thumb hover-img">
-                                    <a title="The 8 Most Affordable Michelin Restaurants in Paris"
-                                       href="blog-detail.html"><img src="{{asset('home/images/blog-01.jpg')}}"
-                                                                    alt="The 8 Most Affordable Michelin Restaurants in Paris"></a>
-                                </div>
-                                <div class="post__info">
-                                    <ul class="post__category">
-                                        <li><a title="Paris" href="02_city-details_1.html">Paris</a></li>
-                                        <li><a title="Food" href="02_city-details_1.html">Food</a></li>
-                                    </ul>
-                                    <h3 class="post__title"><a
-                                            title="The 8 Most Affordable Michelin Restaurants in Paris"
-                                            href="blog-detail.html">The 8 Most Affordable Michelin Restaurants in
-                                            Paris</a></h3>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="col-12 col-lg-4">
-                            <article class="post hover__box">
-                                <div class="post__thumb hover-img">
-                                    <a title="The 7 Best Restaurants to Try Kobe Beef in London"
-                                       href="blog-detail.html"><img src="{{asset('home/images/blog-01.jpg')}}"
-                                                                    alt="The 7 Best Restaurants to Try Kobe Beef in London"></a>
-                                </div>
-                                <div class="post__info">
-                                    <ul class="post__category">
-                                        <li><a title="London" href="02_city-details_1.html">London</a></li>
-                                        <li><a title="Art & Decor" href="02_city-details_1.html">Art & Decor</a></li>
-                                    </ul>
-                                    <h3 class="post__title"><a title="The 7 Best Restaurants to Try Kobe Beef in London"
-                                                               href="blog-detail.html">The 7 Best Restaurants to Try
-                                            Kobe Beef in London</a></h3>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="col-12 col-lg-4">
-                            <article class="post hover__box">
-                                <div class="post__thumb hover-img">
-                                    <a title="The 8 Most Affordable Michelin Restaurants in Paris"
-                                       href="blog-detail.html"><img src="{{asset('home/images/blog-01.jpg')}}"
-                                                                    alt="The 8 Most Affordable Michelin Restaurants in Paris"></a>
-                                </div>
-                                <div class="post__info">
-                                    <ul class="post__category">
-                                        <li><a title="Paris" href="02_city-details_1.html">Paris</a></li>
-                                        <li><a title="Stay" href="02_city-details_1.html">Stay</a></li>
-                                    </ul>
-                                    <h3 class="post__title"><a
-                                            title="The 8 Most Affordable Michelin Restaurants in Paris"
-                                            href="blog-detail.html">The 9 Best Cheap Hotels in New York City</a></h3>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="button-wrap">
-                        <a href="#" class="btn" title="View more">عرض أكثر</a>
-                    </div>
-                </div>
-            </div>
-        </section><!-- .blogs-wrap -->
+        {{--        <section class="blogs-wrap layout-02" id="blog">--}}
+        {{--            <div class="container">--}}
+        {{--                <div class="title-wrap align-center">--}}
+        {{--                    <h2>الأخبار</h2>--}}
+        {{--                </div>--}}
+        {{--                <div class="blog-wrap offset-item">--}}
+        {{--                    <div class="row">--}}
+        {{--                        <div class="col-12 col-lg-4">--}}
+        {{--                            <article class="post hover__box">--}}
+        {{--                                <div class="post__thumb hover-img">--}}
+        {{--                                    <a title="The 8 Most Affordable Michelin Restaurants in Paris"--}}
+        {{--                                       href="blog-detail.html"><img src="{{asset('home/images/blog-01.jpg')}}"--}}
+        {{--                                                                    alt="The 8 Most Affordable Michelin Restaurants in Paris"></a>--}}
+        {{--                                </div>--}}
+        {{--                                <div class="post__info">--}}
+        {{--                                    <ul class="post__category">--}}
+        {{--                                        <li><a title="Paris" href="02_city-details_1.html">Paris</a></li>--}}
+        {{--                                        <li><a title="Food" href="02_city-details_1.html">Food</a></li>--}}
+        {{--                                    </ul>--}}
+        {{--                                    <h3 class="post__title"><a--}}
+        {{--                                            title="The 8 Most Affordable Michelin Restaurants in Paris"--}}
+        {{--                                            href="blog-detail.html">The 8 Most Affordable Michelin Restaurants in--}}
+        {{--                                            Paris</a></h3>--}}
+        {{--                                </div>--}}
+        {{--                            </article>--}}
+        {{--                        </div>--}}
+        {{--                        <div class="col-12 col-lg-4">--}}
+        {{--                            <article class="post hover__box">--}}
+        {{--                                <div class="post__thumb hover-img">--}}
+        {{--                                    <a title="The 7 Best Restaurants to Try Kobe Beef in London"--}}
+        {{--                                       href="blog-detail.html"><img src="{{asset('home/images/blog-01.jpg')}}"--}}
+        {{--                                                                    alt="The 7 Best Restaurants to Try Kobe Beef in London"></a>--}}
+        {{--                                </div>--}}
+        {{--                                <div class="post__info">--}}
+        {{--                                    <ul class="post__category">--}}
+        {{--                                        <li><a title="London" href="02_city-details_1.html">London</a></li>--}}
+        {{--                                        <li><a title="Art & Decor" href="02_city-details_1.html">Art & Decor</a></li>--}}
+        {{--                                    </ul>--}}
+        {{--                                    <h3 class="post__title"><a title="The 7 Best Restaurants to Try Kobe Beef in London"--}}
+        {{--                                                               href="blog-detail.html">The 7 Best Restaurants to Try--}}
+        {{--                                            Kobe Beef in London</a></h3>--}}
+        {{--                                </div>--}}
+        {{--                            </article>--}}
+        {{--                        </div>--}}
+        {{--                        <div class="col-12 col-lg-4">--}}
+        {{--                            <article class="post hover__box">--}}
+        {{--                                <div class="post__thumb hover-img">--}}
+        {{--                                    <a title="The 8 Most Affordable Michelin Restaurants in Paris"--}}
+        {{--                                       href="blog-detail.html"><img src="{{asset('home/images/blog-01.jpg')}}"--}}
+        {{--                                                                    alt="The 8 Most Affordable Michelin Restaurants in Paris"></a>--}}
+        {{--                                </div>--}}
+        {{--                                <div class="post__info">--}}
+        {{--                                    <ul class="post__category">--}}
+        {{--                                        <li><a title="Paris" href="02_city-details_1.html">Paris</a></li>--}}
+        {{--                                        <li><a title="Stay" href="02_city-details_1.html">Stay</a></li>--}}
+        {{--                                    </ul>--}}
+        {{--                                    <h3 class="post__title"><a--}}
+        {{--                                            title="The 8 Most Affordable Michelin Restaurants in Paris"--}}
+        {{--                                            href="blog-detail.html">The 9 Best Cheap Hotels in New York City</a></h3>--}}
+        {{--                                </div>--}}
+        {{--                            </article>--}}
+        {{--                        </div>--}}
+        {{--                    </div>--}}
+        {{--                    <div class="button-wrap">--}}
+        {{--                        <a href="#" class="btn" title="View more">عرض أكثر</a>--}}
+        {{--                    </div>--}}
+        {{--                </div>--}}
+        {{--            </div>--}}
+        {{--        </section>--}}
     </main><!-- .site-main -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
 
+    <a href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, أريد تجربة مجانية في Taskellow"
+       class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp whatsapp-icon-float"></i>
+    </a>
     <footer id="footer" class="footer">
         <div class="container">
             <div class="footer__top">
@@ -561,25 +577,16 @@
                     </div>
                     <div class="col-lg-2">
                         <aside class="footer__top__nav">
-                            <h3>Company</h3>
+                            <h3>عام</h3>
                             <ul>
-                                <li><a title="About Us" href="06_about-us.html">About Us</a></li>
-                                <li><a title="Blog" href="07_blog-right-sidebar.html">Blog</a></li>
-                                <li><a title="Faqs" href="15_faqs.html">Faqs</a></li>
-                                <li><a title="Contact" href="09_contact-us.html">Contact</a></li>
+                                <li><a title="من نحن" href="#">من نحن</a></li>
+                                <li><a title="الأسئلة الشائعة" href="#">الأسئلة الشائعة</a></li>
+                                <li><a title="سياسة الخصوصية" href="#">سياسة الخصوصية</a></li>
                             </ul>
                         </aside>
                     </div>
                     <div class="col-lg-2">
-                        <aside class="footer__top__nav">
-                            <h3>Support</h3>
-                            <ul>
-                                <li><a title="Get in Touch" href="#">Get in Touch</a></li>
-                                <li><a title="Help Center" href="#">Help Center</a></li>
-                                <li><a title="Live chat" href="#">Live chat</a></li>
-                                <li><a title="How it works" href="#">How it works</a></li>
-                            </ul>
-                        </aside>
+
                     </div>
                     <div class="col-lg-3">
                         <aside class="footer__top__nav footer__top__nav--contact">
@@ -618,7 +625,8 @@
                 </div>
             </div><!-- .top-footer -->
             <div class="footer__bottom">
-                <p class="footer__bottom__copyright">{{Carbon::now()->year}} &copy; <a title="Intshar" href="#">intshar.com</a>.
+                <p class="footer__bottom__copyright">{{Carbon::now()->year}} &copy; <a title="Intshar"
+                                                                                       href="https://intshar.net">Intshar.com</a>.
                     كل الحقوق محفوظة.</p>
             </div><!-- .top-footer -->
         </div><!-- .container -->

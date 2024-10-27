@@ -11,6 +11,6 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        server: ftp.taskellow.com
+        server: 194.164.74.58
         username: u529906503.taskellow
         password: ${{ secrets.ftp_password }}

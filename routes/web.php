@@ -1,13 +1,15 @@
 <?php
 
-use App\Models\Project;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
 use App\Livewire\EmpLogin;
-use Illuminate\Support\Facades\Route;
 use App\Models\Emp;
+use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('home/index');
+    return view('home/ar/index');
 });
 Route::get('/emp-login', EmpLogin::class)->name('emp.login');
 
@@ -18,30 +20,33 @@ Route::get('/projects', function () {
     return response()->json($projects);
 });
 
+// Contact routes
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+Route::get('/privacy', [HomeController::class, 'privacy'])->name('privacy');
 
 
 Route::get('/employee-tasks', function (Request $request) {
     // Get the date inputs
-   // Get the date inputs
-   $startDate = $request->input('start_date');
-   $endDate = $request->input('end_date');
+    // Get the date inputs
+    $startDate = $request->input('start_date');
+    $endDate = $request->input('end_date');
 
-   // Initialize the query
-   $query = Emp::with(['sentTasks']);
+    // Initialize the query
+    $query = Emp::with(['sentTasks']);
 
-   // Apply date filtering if dates are provided
-   if ($startDate && $endDate) {
-       $query->whereHas('sentTasks', function ($query) use ($startDate, $endDate) {
-           $query->whereBetween('created_at', [$startDate, $endDate]);
-       });
-   }
+    // Apply date filtering if dates are provided
+    if ($startDate && $endDate) {
+        $query->whereHas('sentTasks', function ($query) use ($startDate, $endDate) {
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        });
+    }
 
-   // Get the employees with their task sums
-   $employees = $query->get()->map(function ($employee) {
-       $employee->sent_tasks_sum_time_in_minutes = $employee->sentTasks->sum('time_in_minutes');
-       return $employee;
-   });
+    // Get the employees with their task sums
+    $employees = $query->get()->map(function ($employee) {
+        $employee->sent_tasks_sum_time_in_minutes = $employee->sentTasks->sum('time_in_minutes');
+        return $employee;
+    });
 
-   // Return the collection as JSON
-   return view('filament.pages.employee-task-minutes', compact('employees'));
+    // Return the collection as JSON
+    return view('filament.pages.employee-task-minutes', compact('employees'));
 })->name('employee.tasks');

@@ -1,15 +1,16 @@
 @extends('home.ar.layout.wrapper')
 
 @section('content')
-    <section class="site-banner layout-02" style="background-image: url({{asset('home/images/banner.png')}});">
+    <section class="site-banner layout-02"
+             style="background-image: url({{asset('home/images/banner.png')}});  background-position: 15% 100%; background-size: 700px;">
         <div class="container  offset-item">
             <div class="site-banner__content">
                 <h1 class="site-banner__title">
-                    يقدم Taskellow</h1>
+                    يقدم تاسكلو</h1>
                 <div class="title-wrap"> مجموعة متكاملة من الأدوات والميزات المصممة <strong>لتلبية احتياجات</strong>
                     شركات التسويق
                 </div>
-                <a href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, أريد تجربة مجانية في Taskellow"
+                <a href="{{url('/admin')}}"
                    class="btn" title="View more">تجربة مجانية</a>
             </div><!-- .site-banner__content -->
         </div>
@@ -57,7 +58,7 @@
         <div class="container">
             <div class="title-wrap align-center">
                 <h2>لماذا نحن?</h2>
-                <p>يقدم Taskellow مجموعة متكاملة من الأدوات والميزات المصممة لتلبية احتياجات شركات التسويق، بما في
+                <p>يقدم تاسكلو مجموعة متكاملة من الأدوات والميزات المصممة لتلبية احتياجات شركات التسويق، بما في
                     ذلك</p>
             </div>
             <div class="inner">
@@ -236,100 +237,100 @@
             </div>
         </div>
     </section><!-- .cities-wrap -->
-    <section class="testimonial-wrap" id="testemonial">
-        <div class="container">
-            <div class="title-wrap align-center">
-                <h2>أراء عملائنا</h2>
-            </div>
-            <div class="slick-sliders offset-item">
-                <div class="slick-slider testimonial-slider layout-03 slider-pd30" data-item="3" data-arrows="true"
-                     data-itemScroll="3" data-dots="true" data-centerPadding="30" data-tabletitem="1"
-                     data-tabletscroll="1" data-mobileitem="1" data-mobilescroll="1" data-mobilearrows="false">
-                    <div class="testimonial-item">
-                        <div class="testimonial-info">
-                            <p>Really useful app to find interesting things to see do, drink and eat in new places.
-                                I’ve been using it regularly in my travels over the past few months.</p>
-                            <div class="testimonial-meta">
-                                <div class="avatar">
-                                    <img src="{{asset('home/images/member-avatar.png')}}" alt="Avatar" class="ava">
+    {{--    <section class="testimonial-wrap" id="testemonial">--}}
+    {{--        <div class="container">--}}
+    {{--            <div class="title-wrap align-center">--}}
+    {{--                <h2>أراء عملائنا</h2>--}}
+    {{--            </div>--}}
+    {{--            <div class="slick-sliders offset-item">--}}
+    {{--                <div class="slick-slider testimonial-slider layout-03 slider-pd30" data-item="3" data-arrows="true"--}}
+    {{--                     data-itemScroll="3" data-dots="true" data-centerPadding="30" data-tabletitem="1"--}}
+    {{--                     data-tabletscroll="1" data-mobileitem="1" data-mobilescroll="1" data-mobilearrows="false">--}}
+    {{--                    <div class="testimonial-item">--}}
+    {{--                        <div class="testimonial-info">--}}
+    {{--                            <p>Really useful app to find interesting things to see do, drink and eat in new places.--}}
+    {{--                                I’ve been using it regularly in my travels over the past few months.</p>--}}
+    {{--                            <div class="testimonial-meta">--}}
+    {{--                                <div class="avatar">--}}
+    {{--                                    <img src="{{asset('home/images/member-avatar.png')}}" alt="Avatar" class="ava">--}}
 
-                                </div>
-                                <div class="author">
-                                    <b>Kari Granleese</b>
-                                    <span>CEO Alididi</span>
-                                </div>
-                                <div class="quote">
-                                    <img src="{{asset('home/images/quote-active.png')}}" alt="Quote" class="quote">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item">
-                        <div class="testimonial-info">
-                            <p>Really useful app to find interesting things to see do, drink and eat in new places.
-                                I’ve been using it regularly in my travels over the past few months.</p>
-                            <div class="testimonial-meta">
-                                <div class="avatar">
-                                    <img src="{{asset('home/images/member-avatar.png')}}" alt="Avatar" class="ava">
-                                </div>
-                                <div class="author">
-                                    <b>Kari Granleese</b>
-                                    <span>CEO Alididi</span>
-                                </div>
-                                <div class="quote">
-                                    <img src="{{asset('home/images/quote-active.png')}}" alt="Quote" class="quote">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item">
-                        <div class="testimonial-info">
-                            <p>Really useful app to find interesting things to see do, drink and eat in new places.
-                                I’ve been using it regularly in my travels over the past few months.</p>
-                            <div class="testimonial-meta">
-                                <div class="avatar">
-                                    <img src="{{asset('home/images/member-avatar.png')}}" alt="Avatar" class="ava">
-                                </div>
-                                <div class="author">
-                                    <b>Kari Granleese</b>
-                                    <span>CEO Alididi</span>
-                                </div>
-                                <div class="quote">
-                                    <img src="{{asset('home/images/quote-active.png')}}" alt="Quote" class="quote">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item">
-                        <div class="testimonial-info">
-                            <p>Really useful app to find interesting things to see do, drink and eat in new places.
-                                I’ve been using it regularly in my travels over the past few months.</p>
-                            <div class="testimonial-meta">
-                                <div class="avatar">
-                                    <img src="{{asset('home/images/member-avatar.png')}}" alt="Avatar" class="ava">
-                                </div>
-                                <div class="author">
-                                    <b>Kari Granleese</b>
-                                    <span>CEO Alididi</span>
-                                </div>
-                                <div class="quote">
-                                    <img src="{{asset('home/images/quote-active.png')}}" alt="Quote" class="quote">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="place-slider__nav slick-nav">
-                    <div class="place-slider__prev slick-nav__prev">
-                        <i class="las la-angle-left"></i>
-                    </div><!-- .place-slider__prev -->
-                    <div class="place-slider__next slick-nav__next">
-                        <i class="las la-angle-right"></i>
-                    </div><!-- .place-slider__next -->
-                </div><!-- .place-slider__nav -->
-            </div>
-        </div>
-    </section><!-- .testimonial-wrap -->
+    {{--                                </div>--}}
+    {{--                                <div class="author">--}}
+    {{--                                    <b>Kari Granleese</b>--}}
+    {{--                                    <span>CEO Alididi</span>--}}
+    {{--                                </div>--}}
+    {{--                                <div class="quote">--}}
+    {{--                                    <img src="{{asset('home/images/quote-active.png')}}" alt="Quote" class="quote">--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                    <div class="testimonial-item">--}}
+    {{--                        <div class="testimonial-info">--}}
+    {{--                            <p>Really useful app to find interesting things to see do, drink and eat in new places.--}}
+    {{--                                I’ve been using it regularly in my travels over the past few months.</p>--}}
+    {{--                            <div class="testimonial-meta">--}}
+    {{--                                <div class="avatar">--}}
+    {{--                                    <img src="{{asset('home/images/member-avatar.png')}}" alt="Avatar" class="ava">--}}
+    {{--                                </div>--}}
+    {{--                                <div class="author">--}}
+    {{--                                    <b>Kari Granleese</b>--}}
+    {{--                                    <span>CEO Alididi</span>--}}
+    {{--                                </div>--}}
+    {{--                                <div class="quote">--}}
+    {{--                                    <img src="{{asset('home/images/quote-active.png')}}" alt="Quote" class="quote">--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                    <div class="testimonial-item">--}}
+    {{--                        <div class="testimonial-info">--}}
+    {{--                            <p>Really useful app to find interesting things to see do, drink and eat in new places.--}}
+    {{--                                I’ve been using it regularly in my travels over the past few months.</p>--}}
+    {{--                            <div class="testimonial-meta">--}}
+    {{--                                <div class="avatar">--}}
+    {{--                                    <img src="{{asset('home/images/member-avatar.png')}}" alt="Avatar" class="ava">--}}
+    {{--                                </div>--}}
+    {{--                                <div class="author">--}}
+    {{--                                    <b>Kari Granleese</b>--}}
+    {{--                                    <span>CEO Alididi</span>--}}
+    {{--                                </div>--}}
+    {{--                                <div class="quote">--}}
+    {{--                                    <img src="{{asset('home/images/quote-active.png')}}" alt="Quote" class="quote">--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                    <div class="testimonial-item">--}}
+    {{--                        <div class="testimonial-info">--}}
+    {{--                            <p>Really useful app to find interesting things to see do, drink and eat in new places.--}}
+    {{--                                I’ve been using it regularly in my travels over the past few months.</p>--}}
+    {{--                            <div class="testimonial-meta">--}}
+    {{--                                <div class="avatar">--}}
+    {{--                                    <img src="{{asset('home/images/member-avatar.png')}}" alt="Avatar" class="ava">--}}
+    {{--                                </div>--}}
+    {{--                                <div class="author">--}}
+    {{--                                    <b>Kari Granleese</b>--}}
+    {{--                                    <span>CEO Alididi</span>--}}
+    {{--                                </div>--}}
+    {{--                                <div class="quote">--}}
+    {{--                                    <img src="{{asset('home/images/quote-active.png')}}" alt="Quote" class="quote">--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
+    {{--                <div class="place-slider__nav slick-nav">--}}
+    {{--                    <div class="place-slider__prev slick-nav__prev">--}}
+    {{--                        <i class="las la-angle-left"></i>--}}
+    {{--                    </div><!-- .place-slider__prev -->--}}
+    {{--                    <div class="place-slider__next slick-nav__next">--}}
+    {{--                        <i class="las la-angle-right"></i>--}}
+    {{--                    </div><!-- .place-slider__next -->--}}
+    {{--                </div><!-- .place-slider__nav -->--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </section><!-- .testimonial-wrap -->--}}
 
     <section class="banner-wrap">
         <div class="container">
@@ -337,74 +338,74 @@
                 <h2>تواصل معنا</h2>
                 <p>لا تتردد في التواصل معنا لأي استفسارات أو دعم
                     فني.</p>
-                <a href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, أريد تجربة مجانية في Taskellow"
+                <a href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, أريد تجربة مجانية في تاسكلو"
                    class="btn">تواصل معنا</a>
             </div>
         </div>
     </section><!-- .banner-wrap -->
 
-    <main id="faq" class="site-main mt-4">
-        <div class="page-title page-title--small align-left">
-            <div class="container">
-                <div class="page-title__content">
-                    <h1 class="page-title__name">الأسئلة الشائعة</h1>
-                    <p class="page-title__slogan">أكثر الأسئلة شيوعا</p>
-                </div>
-            </div>
-        </div><!-- .page-title -->
-        <div class="site-content">
-            <div class="container">
-                <h2 class="title align-center">كيف يمكننا مساعدتك؟</h2>
-                <ul class="accordion first-open">
-                    <li>
-                        <h3 class="accordion-title"><a href="#">What is Golo Theme?</a></h3>
-                        <div class="accordion-content">
-                            <p>It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is that
-                                it has a more-or-less normal distribution of letters, as opposed to using 'Content
-                                here, content here', making it look like readable English.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <h3 class="accordion-title"><a href="#">Why should I save on Schoolable?</a></h3>
-                        <div class="accordion-content">
-                            <p>It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is that
-                                it has a more-or-less normal distribution of letters, as opposed to using 'Content
-                                here, content here', making it look like readable English.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <h3 class="accordion-title"><a href="#">How secure is my money?</a></h3>
-                        <div class="accordion-content">
-                            <p>It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is that
-                                it has a more-or-less normal distribution of letters, as opposed to using 'Content
-                                here, content here', making it look like readable English.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <h3 class="accordion-title"><a href="#">How much can I save on Golo?</a></h3>
-                        <div class="accordion-content">
-                            <p>It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is that
-                                it has a more-or-less normal distribution of letters, as opposed to using 'Content
-                                here, content here', making it look like readable English.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <h3 class="accordion-title"><a href="#">How many saving plans can I create?</a></h3>
-                        <div class="accordion-content">
-                            <p>It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is that
-                                it has a more-or-less normal distribution of letters, as opposed to using 'Content
-                                here, content here', making it look like readable English.</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div><!-- .site-content -->
-    </main><!-- .site-main -->
+    {{--    <main id="faq" class="site-main mt-4">--}}
+    {{--        <div class="page-title page-title--small align-left">--}}
+    {{--            <div class="container">--}}
+    {{--                <div class="page-title__content">--}}
+    {{--                    <h1 class="page-title__name">الأسئلة الشائعة</h1>--}}
+    {{--                    <p class="page-title__slogan">أكثر الأسئلة شيوعا</p>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </div><!-- .page-title -->--}}
+    {{--        <div class="site-content">--}}
+    {{--            <div class="container">--}}
+    {{--                <h2 class="title align-center">كيف يمكننا مساعدتك؟</h2>--}}
+    {{--                <ul class="accordion first-open">--}}
+    {{--                    <li>--}}
+    {{--                        <h3 class="accordion-title"><a href="#">What is Golo Theme?</a></h3>--}}
+    {{--                        <div class="accordion-content">--}}
+    {{--                            <p>It is a long established fact that a reader will be distracted by the readable--}}
+    {{--                                content of a page when looking at its layout. The point of using Lorem Ipsum is that--}}
+    {{--                                it has a more-or-less normal distribution of letters, as opposed to using 'Content--}}
+    {{--                                here, content here', making it look like readable English.</p>--}}
+    {{--                        </div>--}}
+    {{--                    </li>--}}
+    {{--                    <li>--}}
+    {{--                        <h3 class="accordion-title"><a href="#">Why should I save on Schoolable?</a></h3>--}}
+    {{--                        <div class="accordion-content">--}}
+    {{--                            <p>It is a long established fact that a reader will be distracted by the readable--}}
+    {{--                                content of a page when looking at its layout. The point of using Lorem Ipsum is that--}}
+    {{--                                it has a more-or-less normal distribution of letters, as opposed to using 'Content--}}
+    {{--                                here, content here', making it look like readable English.</p>--}}
+    {{--                        </div>--}}
+    {{--                    </li>--}}
+    {{--                    <li>--}}
+    {{--                        <h3 class="accordion-title"><a href="#">How secure is my money?</a></h3>--}}
+    {{--                        <div class="accordion-content">--}}
+    {{--                            <p>It is a long established fact that a reader will be distracted by the readable--}}
+    {{--                                content of a page when looking at its layout. The point of using Lorem Ipsum is that--}}
+    {{--                                it has a more-or-less normal distribution of letters, as opposed to using 'Content--}}
+    {{--                                here, content here', making it look like readable English.</p>--}}
+    {{--                        </div>--}}
+    {{--                    </li>--}}
+    {{--                    <li>--}}
+    {{--                        <h3 class="accordion-title"><a href="#">How much can I save on Golo?</a></h3>--}}
+    {{--                        <div class="accordion-content">--}}
+    {{--                            <p>It is a long established fact that a reader will be distracted by the readable--}}
+    {{--                                content of a page when looking at its layout. The point of using Lorem Ipsum is that--}}
+    {{--                                it has a more-or-less normal distribution of letters, as opposed to using 'Content--}}
+    {{--                                here, content here', making it look like readable English.</p>--}}
+    {{--                        </div>--}}
+    {{--                    </li>--}}
+    {{--                    <li>--}}
+    {{--                        <h3 class="accordion-title"><a href="#">How many saving plans can I create?</a></h3>--}}
+    {{--                        <div class="accordion-content">--}}
+    {{--                            <p>It is a long established fact that a reader will be distracted by the readable--}}
+    {{--                                content of a page when looking at its layout. The point of using Lorem Ipsum is that--}}
+    {{--                                it has a more-or-less normal distribution of letters, as opposed to using 'Content--}}
+    {{--                                here, content here', making it look like readable English.</p>--}}
+    {{--                        </div>--}}
+    {{--                    </li>--}}
+    {{--                </ul>--}}
+    {{--            </div>--}}
+    {{--        </div><!-- .site-content -->--}}
+    {{--    </main><!-- .site-main -->--}}
 
     <section id="contact" class="site-main contact-main  mt-4">
         <div class="page-title page-title--small align-left"

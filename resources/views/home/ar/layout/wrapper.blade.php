@@ -5,10 +5,20 @@
     <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Taskellow | للتسويق</title>
-    <meta name="robots" content="index, follow"/>
-    <meta name="keywords" content=""/>
-    <meta name="description" content=""/>
+    <title>تاسكلو | برنامج إدارة مهام شركات التسويق</title>
+
+    <meta name="keywords" content="{{config('settings.meta_keywords_ar')}}"/>
+    <meta name="description" content="{{config('settings.meta_description_ar')}}">
+    <meta property="og:title" content="{{config('settings.meta_og_title_ar')}}">
+    <meta property="og:type" content="{{config('settings.meta_og_type_ar')}}"/>
+    <meta property="og:description" content="{{config('settings.meta_og_description_ar')}}">
+    <meta property="og:image" content="{{url('/')."/uploads/meta/".config('settings.meta_og_image_ar')}}">
+    <meta property="og:url" content="{{config('settings.meta_og_url_ar')}}">
+
+    <meta name="twitter:title" content="{{config('settings.meta_twitter_title_ar')}}">
+    <meta name="twitter:description" content=" {{config('settings.meta_twitter_description_ar')}}">
+    <meta name="twitter:image" content="{{url('/')."/uploads/meta/".config('settings.meta_twitter_image_ar')}}">
+    <meta name="twitter:card" content="{{config('settings.meta_twitter_card_ar')}}">
 
     <!-- favicons -->
     <link rel="shortcut icon" href="{{asset('home/favicon.png')}}">
@@ -95,7 +105,7 @@
                                 </div><!-- .popup__content -->
                                 <div class="popup__button popup__box">
                                     <a title="Add place"
-                                       href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, أريد تجربة مجانية في Taskellow"
+                                       href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, أريد تجربة مجانية في تاسكلو"
                                        class="btn">
                                         <span>تواصل معنا</span>
                                     </a>
@@ -124,10 +134,14 @@
                                 </li>
                                 <li>
                                     <a href="#advantage" title="مميزاتنا">مميزاتنا</a>
-                                </li>
                                 <li>
-                                    <a href="#testemonial" title="راء العملاء">أراء العملاء</a>
+                                    <a href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, ما هو سعر اشتراك تاسكلو"
+                                       title="الأسعار">الأسعار</a>
                                 </li>
+                                </li>
+                                {{--                                <li>--}}
+                                {{--                                    <a href="#testemonial" title="راء العملاء">أراء العملاء</a>--}}
+                                {{--                                </li>--}}
                                 <li>
                                     <a href="#blog" title="الأخبار">الأخبار</a>
                                 </li>
@@ -135,7 +149,7 @@
                         </nav>
                         <div class="right-header__button btn">
                             <a title="Add place"
-                               href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, أريد تجربة مجانية في Taskellow">
+                               href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, أريد تجربة مجانية في تاسكلو">
                                 <i class="las la-plus la-24-white"></i>
                                 <span>تواصل معنا</span>
                             </a>
@@ -152,7 +166,7 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
 
-    <a href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, أريد تجربة مجانية في Taskellow"
+    <a href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, أريد تجربة مجانية في تاسكلو"
        class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp whatsapp-icon-float"></i>
     </a>
@@ -164,7 +178,7 @@
                         <div class="footer__top__info">
                             <a title="Logo" href="{{url('/')}}" class="footer__top__info__logo"><img
                                     src="{{asset('home/logo.png')}}" alt="Golo"></a>
-                            <p class="footer__top__info__desc">Taskellow هو نظام إدارة مهام مبتكر مصمم خصيصًا لشركات
+                            <p class="footer__top__info__desc">تاسكلو هو نظام إدارة مهام مبتكر مصمم خصيصًا لشركات
                                 التسويق لتحسين كفاءة العمليات اليومية وضمان تقديم خدمة عملاء متميزة. نسعى لتسهيل إدارة
                                 المهام وتبسيط العمل الجماعي من خلال توفير أدوات تساعد في تتبع أداء الموظفين، تنظيم
                                 العمل، وتخصيص المهام بشكل ذكي وسريع.

@@ -338,7 +338,7 @@
                 <h2>تواصل معنا</h2>
                 <p>لا تتردد في التواصل معنا لأي استفسارات أو دعم
                     فني.</p>
-                <a href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, أريد تجربة مجانية في تاسكلو"
+                <a href="https://api.whatsapp.com/send?phone=966539811400&text=مرحبا, أريد تجربة مجانية في تاسكلو"
                    class="btn">تواصل معنا</a>
             </div>
         </div>
@@ -407,7 +407,7 @@
     {{--        </div><!-- .site-content -->--}}
     {{--    </main><!-- .site-main -->--}}
 
-    <section id="contact" class="site-main contact-main  mt-4">
+    <section id="contactus" class="site-main contact-main  mt-4">
         <div class="page-title page-title--small align-left"
              style="background-image: url({{asset('home/images/bg-about.png')}});">
             <div class="container">
@@ -425,8 +425,8 @@
                             <h2>مكتبنا</h2>
                             <div class="contact-box">
                                 <h3>المملكة العربية السعودية</h3>
-                                <p>الخبر</p>
-                                <p dir="ltr"><a href="tel:+966 51000000000000">+966 51000000000000</a></p>
+                                <p></p>
+                                <p dir="ltr"><a href="tel:+966539811400">+966 539811400</a></p>
                             </div>
                             {{--                                <div class="contact-box">--}}
                             {{--                                    <h3>Paris</h3>--}}

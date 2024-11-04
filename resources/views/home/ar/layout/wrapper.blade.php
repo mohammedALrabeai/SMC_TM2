@@ -94,20 +94,26 @@
                                                 <a href="#advantage" title="مميزاتنا">مميزاتنا</a>
                                             </li>
                                             <li>
-                                                <a href="#testemonial" title="راء العملاء">أراء العملاء</a>
+                                                <a href="https://api.whatsapp.com/send?phone=966539811400&text=مرحبا, ما هو سعر اشتراك تاسكلو"
+                                                   title="الأسعار">الأسعار</a>
                                             </li>
+                                            {{--                                            <li>--}}
+                                            {{--                                                <a href="#testemonial" title="أراء العملاء">أراء العملاء</a>--}}
+                                            {{--                                            </li>--}}
+                                            {{--                                            <li>--}}
+                                            {{--                                                <a href="#blog" title="الأخبار">الأخبار</a>--}}
+                                            {{--                                            </li>--}}
                                             <li>
-                                                <a href="#blog" title="الأخبار">الأخبار</a>
+                                                <a href="#contactus" title="تواصل معنا">تواصل معنا</a>
                                             </li>
-
                                         </ul>
                                     </div><!-- .popup__menu -->
                                 </div><!-- .popup__content -->
                                 <div class="popup__button popup__box">
                                     <a title="Add place"
-                                       href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, أريد تجربة مجانية في تاسكلو"
+                                       href="{{url('/admin')}}"
                                        class="btn">
-                                        <span>تواصل معنا</span>
+                                        <span>تجربة مجانية</span>
                                     </a>
                                 </div><!-- .popup__button -->
                             </div><!-- .popup -->
@@ -135,23 +141,27 @@
                                 <li>
                                     <a href="#advantage" title="مميزاتنا">مميزاتنا</a>
                                 <li>
-                                    <a href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, ما هو سعر اشتراك تاسكلو"
+                                    <a href="https://api.whatsapp.com/send?phone=966539811400&text=مرحبا, ما هو سعر اشتراك تاسكلو"
                                        title="الأسعار">الأسعار</a>
                                 </li>
                                 </li>
                                 {{--                                <li>--}}
                                 {{--                                    <a href="#testemonial" title="راء العملاء">أراء العملاء</a>--}}
                                 {{--                                </li>--}}
+                                {{--                                <li>--}}
+                                {{--                                    <a href="#blog" title="الأخبار">الأخبار</a>--}}
+                                {{--                                </li>--}}
+
                                 <li>
-                                    <a href="#blog" title="الأخبار">الأخبار</a>
+                                    <a href="#contactus" title="تواصل معنا">تواصل معنا</a>
                                 </li>
                             </ul>
                         </nav>
                         <div class="right-header__button btn">
                             <a title="Add place"
-                               href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, أريد تجربة مجانية في تاسكلو">
+                               href="{{url('/admin')}}">
                                 <i class="las la-plus la-24-white"></i>
-                                <span>تواصل معنا</span>
+                                <span>تجربة مجانية</span>
                             </a>
                         </div><!-- .right-header__button -->
                     </div><!-- .right-header -->
@@ -166,7 +176,7 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
 
-    <a href="https://api.whatsapp.com/send?phone=111111&text=مرحبا, أريد تجربة مجانية في تاسكلو"
+    <a href="https://api.whatsapp.com/send?phone=966539811400&text=مرحبا, أريد تجربة مجانية في تاسكلو"
        class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp whatsapp-icon-float"></i>
     </a>
@@ -194,7 +204,7 @@
                                     <a href="{{url('/')}}" title="الرئيسية">الرئيسية</a>
                                 </li>
                                 <li><a title="من نحن" href="#">من نحن</a></li>
-                                <li><a title="الأسئلة الشائعة" href="#faq">الأسئلة الشائعة</a></li>
+                                {{--                                <li><a title="الأسئلة الشائعة" href="#faq">الأسئلة الشائعة</a></li>--}}
                                 <li><a title="سياسة الخصوصية" href="{{route('privacy')}}">سياسة الخصوصية</a></li>
                             </ul>
                         </aside>
@@ -205,10 +215,10 @@
                     <div class="col-lg-3">
                         <aside class="footer__top__nav footer__top__nav--contact">
                             <h3>تواصل معنا</h3>
-                            <p>البريد الإلكتروني: <a href="mailto:support@domain.com">support@domain.com</a></p>
+                            <p>البريد الإلكتروني: <a href="mailto:support@domain.com">info@intshar.net</a></p>
                             <div class="d-flex">
                                 رقم الهاتف:
-                                <p dir="ltr" class="mx-2"><a href="tel:+966 51000000000000">+966 51000000000000</a></p>
+                                <p dir="ltr" class="mx-2"><a href="tel:+966539811400">+966539811400</a></p>
                             </div>
                             <ul>
                                 <li class="facebook">

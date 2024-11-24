@@ -14,8 +14,10 @@ class EmployeeTaskMinutes extends Page
     {
         $startDate = request('start_date');
         $endDate = request('end_date');
+        $currentUser = auth()->user();
 
-        $query = Emp::with('sentTasks')
+        $query = Emp::where('user_id', $currentUser->id)
+        ->with('sentTasks')
             ->withSum(['sentTasks' => function ($query) use ($startDate, $endDate) {
                 if ($startDate) {
                     $query->whereDate('created_at', '>=', $startDate);

@@ -72,18 +72,26 @@ class EmpResource extends Resource
                 //     ->required(),
                 //add ldj
                 Forms\Components\Select::make('day_off')
-                ->options(WhatsAppService::getDaysOptions())
-                ->multiple()
-                ->default([7])
+                ->label('Days Off')
+                ->options([
+                    'Sunday' => 'Sunday',
+                    'Monday' => 'Monday',
+                    'Tuesday' => 'Tuesday',
+                    'Wednesday' => 'Wednesday',
+                    'Thursday' => 'Thursday',
+                    'Friday' => 'Friday',
+                    'Saturday' => 'Saturday',
+                ])
+                ->multiple() // لدعم اختيار أيام متعددة
+                ->required()
+                ->default(['Friday']) // القيمة الافتراضية
+                ->dehydrated(true) // تأكد من إرسال الحقل عند الحفظ
                 ->afterStateHydrated(function ($component, $state) {
                     if (is_string($state)) {
-                        // فك التشفير إذا كانت الحالة سلسلة JSON
                         $component->state(json_decode($state, true));
-                    } else {
-                        // في حال كانت بالفعل مصفوفة، نحتفظ بالقيمة كما هي
-                        $component->state($state);
                     }
                 }),
+            
   Forms\Components\Toggle::make('is_admin')
   ->required(),
   Forms\Components\Toggle::make('can_show')
@@ -120,7 +128,10 @@ class EmpResource extends Resource
                     Tables\Columns\IconColumn::make('is_active') // عرض حالة التفعيل
                     ->label('Active')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('day_off'),
+                    Tables\Columns\TextColumn::make('day_off')
+                    ->label('Days Off')
+                    ->formatStateUsing(fn ($state) => is_array($state) ? implode(', ', $state) : $state),
+                
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -91,6 +91,17 @@ class EmpResource extends Resource
                         $component->state(json_decode($state, true));
                     }
                 }),
+                Forms\Components\Select::make('request_status')
+    ->label('Request Status')
+    ->options([
+        'pending' => 'Pending',
+        'approved' => 'Approved',
+        'rejected' => 'Rejected',
+    ])
+    ->default('pending')
+    ->required()
+    ->hiddenOn('create'),
+
             
   Forms\Components\Toggle::make('is_admin')
   ->required(),
@@ -128,6 +139,23 @@ class EmpResource extends Resource
                     Tables\Columns\IconColumn::make('is_active') // عرض حالة التفعيل
                     ->label('Active')
                     ->boolean(),
+                    Tables\Columns\BadgeColumn::make('request_status')
+                    ->label('Request Status')
+                    ->formatStateUsing(function ($state) {
+                        return match ($state) {
+                            'pending' => 'Pending',
+                            'approved' => 'Approved',
+                            'rejected' => 'Rejected',
+                            default => 'Unknown',
+                        };
+                    })
+                    ->colors([
+                        'pending' => 'warning',
+                        'approved' => 'success',
+                        'rejected' => 'danger',
+                    ])
+                    ->sortable(),
+
                     Tables\Columns\TextColumn::make('day_off')
                     ->label('Days Off')
                     ->formatStateUsing(fn ($state) => is_array($state) ? implode(', ', $state) : $state),
@@ -142,10 +170,41 @@ class EmpResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('request_status')
+                ->label('Request Status')
+                ->options([
+                    'pending' => 'Pending',
+                    'approved' => 'Approved',
+                    'rejected' => 'Rejected',
+                ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('approve')
+                ->label('Approve')
+                ->icon('heroicon-o-check-circle')
+                ->color('success')
+                ->action(function (Emp $record) {
+                    $record->update(['request_status' => 'approved']);
+                    Notification::make()
+                        ->title('Request Approved')
+                        ->success()
+                        ->send();
+                })
+                ->visible(fn (Emp $record) => $record->request_status === 'pending'),
+        
+            Tables\Actions\Action::make('reject')
+                ->label('Reject')
+                ->icon('heroicon-o-x-circle')
+                ->color('danger')
+                ->action(function (Emp $record) {
+                    $record->update(['request_status' => 'rejected']);
+                    Notification::make()
+                        ->title('Request Rejected')
+                        ->danger()
+                        ->send();
+                })
+                ->visible(fn (Emp $record) => $record->request_status === 'pending'),
             ])
             ->bulkActions([
                 BulkAction::make('export')

@@ -18,7 +18,7 @@ return [
     |
     */
 
-    'driver' => env('SESSION_DRIVER', 'database'),
+    'driver' => env('SESSION_DRIVER', 'file'),
 
     /*
     |--------------------------------------------------------------------------
@@ -31,6 +31,10 @@ return [
     | indicate that via the expire_on_close configuration option.
     |
     */
+//     'driver' => 'file',
+// 'cookie' => 'laravel_session',
+// 'lifetime' => 120,
+
 
     'lifetime' => env('SESSION_LIFETIME', 120),
 
@@ -129,7 +133,7 @@ return [
 
     'cookie' => env(
         'SESSION_COOKIE',
-        Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
+        Str::slug(env('APP_NAME', 'laravel_session'), '_').'_session'
     ),
 
     /*

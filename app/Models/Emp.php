@@ -13,9 +13,9 @@ class Emp extends  Authenticatable
 
     protected $fillable = [
         'user_id', 'name', 'phone', 'number_of_hours_per_day', 'day_off','email', 'password','is_admin','post_url','sheet_api_url',
-        'can_show','is_active'
+        'can_show','is_active','request_status'
     ];
-    
+
     protected $casts = [
         'day_off' => 'array',
     ];

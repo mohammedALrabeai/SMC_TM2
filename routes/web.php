@@ -7,6 +7,9 @@ use App\Models\Emp;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EmployeeRequestController;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 Route::get('/', function () {
     return view('home/ar/index');
@@ -19,6 +22,25 @@ Route::get('/projects', function () {
 
     return response()->json($projects);
 });
+
+Route::get('locale/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'ar'])) {
+        Session::put('locale', $locale); // تخزين اللغة في الجلسة
+        App::setLocale($locale); // تغيير اللغة في التطبيق الحالي
+    }
+    return redirect()->back(); // إعادة توجيه المستخدم إلى الصفحة السابقة
+})->name('locale.change');
+Route::get('test-session', function () {
+    session(['test_key' => 'test_value']);
+    return session('locale'); // يجب أن يعرض 'test_value'
+});
+
+
+
+Route::get('/request-add-employee/{user_id}', [EmployeeRequestController::class, 'showForm'])->name('employee.request');
+Route::post('/request-add-employee/{user_id}', [EmployeeRequestController::class, 'store'])->name('employee.request.store');
+
+
 
 // Contact routes
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');

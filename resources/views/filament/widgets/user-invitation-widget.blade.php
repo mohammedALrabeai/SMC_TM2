@@ -1,6 +1,6 @@
 <div class="p-4 bg-white dark:bg-gray-800 shadow rounded-lg">
     <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Your Invitation Link</h3>
-    <p class="text-sm text-gray-500 dark:text-gray-400">Use this link to invite new employees to register:</p>
+    <p class="text-sm text-gray-500 dark:text-gray-400">Use this link to invite new employees:</p>
     
     <div class="mt-2 flex items-center">
         <input type="text" 
@@ -13,15 +13,28 @@
             Copy
         </button>
     </div>
+    <p id="copy-feedback" class="text-green-500 text-sm mt-2 hidden">Link copied to clipboard!</p>
 </div>
 
 <script>
     function copyToClipboard() {
-        const invitationLink = document.getElementById('invitation-link');
-        invitationLink.select();
-        invitationLink.setSelectionRange(0, 99999); // For mobile devices
-        document.execCommand('copy');
-
-        alert('Link copied to clipboard');
+        const inputElement = document.getElementById('invitation-link');
+        const feedback = document.getElementById('copy-feedback');
+        
+        // تحديد النص داخل الحقل
+        inputElement.select();
+        inputElement.setSelectionRange(0, 99999); // للأجهزة المحمولة
+        
+        // تنفيذ أمر النسخ
+        const successful = document.execCommand('copy');
+        
+        // عرض ملاحظة عند النسخ الناجح
+        if (successful) {
+            feedback.classList.remove('hidden'); // عرض الرسالة
+            setTimeout(() => feedback.classList.add('hidden'), 2000); // إخفاء الرسالة بعد 2 ثانية
+        } else {
+            alert('Failed to copy the link. Please try again.');
+        }
     }
 </script>
+

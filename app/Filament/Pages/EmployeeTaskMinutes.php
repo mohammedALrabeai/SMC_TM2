@@ -8,6 +8,8 @@ class EmployeeTaskMinutes extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-clock';
     protected static string $view = 'filament.pages.employee-task-minutes';
+    protected static ?string $title = 'Employee Task Summary';
+    protected static ?string $navigationGroup = 'Employee Task Summary';
     public $employees;
 
     public function mount()

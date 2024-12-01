@@ -6,21 +6,7 @@
 <header class="main-header py-3 bg-light mt-5">
     {{ app()->setLocale(session('locale')) }}
     <div class="container">
-        {{-- <div class="d-flex justify-content-between align-items-center">
-            <div class="site-logo">
-                <a href="{{ url('/') }}">
-                    <img src="{{ asset('home/logo.png') }}" alt="Logo" height="50">
-                </a>
-            </div>
-            <nav class="site-nav">
-                <ul class="list-inline m-0">
-                    <li class="list-inline-item"><a href="{{ url('/') }}" class="nav-link">{{ __('Home') }}</a></li>
-                    <li class="list-inline-item"><a href="#features" class="nav-link">{{ __('Features') }}</a></li>
-                    <li class="list-inline-item"><a href="#about" class="nav-link">{{ __('About Us') }}</a></li>
-                    <li class="list-inline-item"><a href="#contactus" class="nav-link">{{ __('Contact Us') }}</a></li>
-                </ul>
-            </nav>
-        </div> --}}
+  
     </div>
 </header>
 
@@ -46,13 +32,13 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <div class="card shadow-lg">
-                    <div class="card-header bg-primary text-white text-center">
-                        <h3>{{ __('employee.request_form_title') }}</h3>
+                <div class="card shadow-lg" style="background-color: #7613fb; color: #ffffff; border: 2px solid #7613fb;">
+                    <div class="card-header background-color: #7613fb; text-white text-center">
+                        <h3 style="color: #ffffff;  border: 2px solid #7613fb;">{{ __('employee.request_form_title') }}</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body bg-light">
                         @if(session('success'))
-                            <div class="alert alert-success text-center">
+                            <div class="alert alert-success text-center" style="background-color: #2ecc71; color: #ffffff;">
                                 {{ __('employee.success_message') }}
                             </div>
                         @endif
@@ -60,18 +46,27 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="name" class="form-label">{{ __('employee.name') }}</label>
-                                <input type="text" class="form-control" id="name" name="name" 
-                                       placeholder="{{ __('employee.name_placeholder') }}" required>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" 
+                                       placeholder="{{ __('employee.name_placeholder') }}" value="{{ old('name') }}" required>
+                                @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">{{ __('employee.email') }}</label>
-                                <input type="email" class="form-control" id="email" name="email" 
-                                       placeholder="{{ __('employee.email_placeholder') }}" required>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" 
+                                       placeholder="{{ __('employee.email_placeholder') }}" value="{{ old('email') }}" required>
+                                @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="phone" class="form-label">{{ __('employee.phone') }}</label>
-                                <input type="text" class="form-control" id="phone" name="phone" 
-                                       placeholder="{{ __('employee.phone_placeholder') }}" required>
+                                <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" 
+                                       placeholder="{{ __('employee.phone_placeholder') }}" value="{{ old('phone') }}" required>
+                                @error('phone')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <input type="hidden" name="user_id" value="{{ $user_id }}">
                             <input type="hidden" name="number_of_hours_per_day" value="8">
@@ -81,11 +76,14 @@
                                 </button>
                             </div>
                         </form>
+                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+
 
 @endsection

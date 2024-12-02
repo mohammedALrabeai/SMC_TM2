@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Models\Emp;
 use Filament\Forms;
+use App\Models\User;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
@@ -11,10 +12,10 @@ use App\Exports\EmpsExport;
 use Filament\Resources\Resource;
 use App\Services\WhatsAppService;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Database\Eloquent\Collection;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use App\Filament\Resources\EmpResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\EmpResource\RelationManagers;
@@ -185,11 +186,55 @@ class EmpResource extends Resource
                 ->icon('heroicon-o-check-circle')
                 ->color('success')
                 ->action(function (Emp $record) {
-                    $record->update(['request_status' => 'approved']);
-                    Notification::make()
-                        ->title('Request Approved')
-                        ->success()
-                        ->send();
+                      // إنشاء كلمة المرور
+            $password = $record->user_id . $record->phone;
+            $hashedPassword = bcrypt($password);
+
+            // تحديث حالة الطلب وكلمة المرور
+            $record->update([
+                'request_status' => 'approved',
+                'password' => $hashedPassword,
+                'is_active' => true, // لجعل الموظف نشطًا بعد الموافقة
+            ]);
+
+            // إرسال رسالة WhatsApp
+            $auth = User::find($record->user_id)->w_api_token;
+            $profileId = User::find($record->user_id)->w_api_profile_id;
+            $phone = $record->phone . '@c.us';
+            $loginUrl = url('/app/login');
+            // $message = "تمت الموافقة على طلبك. يمكنك تسجيل الدخول عبر الرابط التالي:\n";
+            // $message .= "$loginUrl\n";
+            // $message .= "البريد الإلكتروني: {$record->email}\n";
+            // $message .= "كلمة المرور: $password\n";
+            // $message = urlencode($message);
+            $userName = User::find($record->user_id)->name;
+            $message = "تمت الموافقة على طلبك بواسطة $userName.  \n";
+$message .= "رابط تسجيل الدخول: $loginUrl \n";
+$message .= "البريد الإلكتروني: $record->email \n";
+$message .= "كلمة المرور: $password";
+
+$message = str_replace("\n", "\\n", $message);
+// dd($message);
+            $responseJson = WhatsAppService::send_with_wapi($auth, $profileId, $phone, $message);
+            // dd($responseJson);
+            $response = json_decode($responseJson, true);
+
+            // تحقق من حالة الإرسال
+            if ($response && $response['status'] === 'done') {
+                Notification::make()
+                    ->title('Request Approved and Notification Sent')
+                    ->success()
+                    ->send();
+            } else {
+                Notification::make()
+                    ->title('Request Approved, but Notification Failed '.$password)
+                    ->warning()
+                    ->send();
+            }
+                    // Notification::make()
+                    //     ->title('Request Approved')
+                    //     ->success()
+                    //     ->send();
                 })
                 ->visible(fn (Emp $record) => $record->request_status === 'pending'),
         

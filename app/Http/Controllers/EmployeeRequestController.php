@@ -5,6 +5,7 @@ use App\Models\Emp;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\WhatsAppService;
+use Illuminate\Validation\Rule;
 
 class EmployeeRequestController extends Controller
 {
@@ -16,22 +17,42 @@ class EmployeeRequestController extends Controller
 
     public function store(Request $request, $user_id)
     {
+       
+
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:emps,email',
-            'phone' => 'required|string|max:15',
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('emps')->where(function ($query) use ($request) {
+                    return $query->where('user_id', $request->user_id);
+                }),
+            ],
+            'phone' => [
+                'required',
+                'string',
+                'max:15',
+                Rule::unique('emps')->where(function ($query) use ($request) {
+                    return $query->where('user_id', $request->user_id);
+                }),
+            ],
         ]);
-          // التحقق من تكرار البريد الإلكتروني أو رقم الهاتف
-    $existingEmployee = Emp::where('email', $request->email)
-    ->orWhere('phone', $request->phone)
-    ->first();
-
-if ($existingEmployee) {
-    // إذا تم العثور على موظف بنفس البريد الإلكتروني أو رقم الهاتف
-    return redirect()->back()->withErrors([
-        'email' => __('هذا البريد الإلكتروني أو رقم الهاتف موجود بالفعل. يرجى التواصل مع الإدارة.'),
-    ])->withInput();
-}
+        
+        
+        // التحقق من تكرار البريد الإلكتروني أو رقم الهاتف مع نفس user_id
+        $existingEmployee = Emp::where(function ($query) use ($request) {
+            $query->where('email', $request->email)
+                  ->orWhere('phone', $request->phone);
+        })->where('user_id', $request->user_id)->first();
+        
+        if ($existingEmployee) {
+            // إذا تم العثور على موظف بنفس البريد الإلكتروني أو رقم الهاتف مع نفس user_id
+            return redirect()->back()->withErrors([
+                'email' => __('هذا البريد الإلكتروني أو رقم الهاتف موجود بالفعل مع نفس المستخدم. يرجى التواصل مع الإدارة.'),
+            ])->withInput();
+        }
+        
 
 
 $employee =  Emp::create([

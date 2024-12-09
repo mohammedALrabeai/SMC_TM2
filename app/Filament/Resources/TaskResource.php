@@ -45,22 +45,25 @@ class TaskResource extends Resource
                 // Forms\Components\TextInput::make('sender_id')
                 //     ->required()
                 //     ->numeric(),
-                Forms\Components\Select::make('sender_id')
-                    ->relationship('task_emp', 'name'),
-                // Forms\Components\TextInput::make('receiver_id')
-                //     ->required()
-                //     ->numeric(),
+                // Forms\Components\Select::make('sender_id')
+                //     ->relationship('task_emp', 'name'),
+                // // Forms\Components\TextInput::make('receiver_id')
+                // //     ->required()
+                // //     ->numeric(),
                 Forms\Components\Select::make('receiver_id')
-                    ->relationship('task_emp', 'name'),
+                    ->relationship('task_emp', 'name')
+                    ->label('Receiver Name'),
                 Forms\Components\TextInput::make('time_in_minutes')
                     ->numeric()
                     ->default(null),
                 // Forms\Components\DateTimePicker::make('start_date'),
                 Forms\Components\Toggle::make('is_recurring')
                     ->required(),
-                Forms\Components\TextInput::make('recurrence_interval_days')
-                    ->numeric()
-                    ->default(null),
+                    Forms\Components\Toggle::make('send_to_group')
+                    ->label('send to client group'),
+                // Forms\Components\TextInput::make('recurrence_interval_days')
+                //     ->numeric()
+                //     ->default(null),
 
                 // Forms\Components\DateTimePicker::make('next_occurrence'),
             ]);
@@ -147,6 +150,9 @@ class TaskResource extends Resource
              }),
 
             ],layout: FiltersLayout::AboveContent)
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -169,7 +175,7 @@ class TaskResource extends Resource
     {
         return [
             'index' => Pages\ListTasks::route('/'),
-            // 'create' => Pages\CreateTask::route('/create'),
+            'create' => Pages\CreateTask::route('/create'),
             'edit' => Pages\EditTask::route('/{record}/edit'),
         ];
     }
